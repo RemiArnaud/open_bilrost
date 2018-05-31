@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vuetify Parallax Starter</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+</head>
+<body>
+ <div id="app">
+   <v-app light>
+    <v-toolbar class="white">
+      <v-toolbar-title v-text="name"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-title v-text="message"></v-toolbar-title>
+    </v-toolbar>
+    <section>
+      <v-parallax src="https://www.goodfreephotos.com/cache/other-photos/backgrounds/blue-watercolor-background.jpg" height="400">
+        <v-layout
+          column
+          align-center
+          justify-center
+          class="black--text"
+        >
+          <h1 class="black--text mb-2 display-1 text-xs-center">Bilrost</h1>
+          <div class="subheading mb-3 text-xs-center">Session has been well set up!</div>
+        </v-layout>
+      </v-parallax>
+      <div
+        align-center
+        class="black--text"
+      >
+          <br></br>
+          <h3 class="text-xs-center">Use "bilrost --help" to get started</h3>
+        </div>
+    </section>
+  </v-app>
+ </div>
+ <script src="https://unpkg.com/vue/dist/vue.js"></script>
+ <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+ <script>
+  const getParameterByName = name => {
+    const url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+    if (!results) {
+      return null; 
+    }
+    if (!results[2]) {
+      return '';
+    }
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  };
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        name: '__name__',
+        message: '__message__'
+      }
+    }
+  })
+ </script>
+</body>
+</html>
