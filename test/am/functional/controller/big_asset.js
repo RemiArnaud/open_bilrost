@@ -68,7 +68,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/vnd.bilrost.level+json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {

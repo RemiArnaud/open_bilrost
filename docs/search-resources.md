@@ -29,8 +29,8 @@ You can also use the .., <=, > or >= symbols to search on dates. Date formatting
 
 ### Find by type
 
-* ```all mime: application/vnd.valhalla.level+json```
-    Matches "all" resources identified by "application/vnd.valhalla.level+json" mime-type.
+* ```all mime: application/json```
+    Matches "all" resources identified by "application/json" mime-type.
 
 * ```extension: levels```
     Matches "all" resources identified by "level" extension.

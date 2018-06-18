@@ -28,7 +28,7 @@ var example_workspace = {
     "pushed_at": "2011-01-26T19:01:12Z",
     "created_at": "2011-01-26T19:01:12Z",
     "updated_at": "2011-01-26T19:14:43Z",
-    "type": 'application/vnd.valhalla.workspace+json',
+    "type": 'application/vnd.bilrost.workspace+json',
     "file_uri": "file:///C:/Users/Maxime/Documents/fl4re-ui/",
     "tags": ["Hello", "World"],
     "subscriptions": [],
@@ -50,7 +50,7 @@ var example_project = {
     "pushed_at": "2016-06-28T16:19:51Z",
     "created_at": "2016-06-27T18:31:40Z",
     "updated_at": "2016-11-17T20:15:11Z",
-    "type": "application/vnd.valhalla.project+json",
+    "type": "application/vnd.bilrost.project+json",
     "properties": {
         "ignore": [
             ".bilrost/workspace",
@@ -61,7 +61,7 @@ var example_project = {
 
 const level_1_0_0 = {
     "uri": "assets/test_1_0_0.level",
-    "type": "application/vnd.valhalla.level+json",
+    "type": "application/vnd.bilrost.level+json",
     "created": "2016-03-18T15:04:02.267Z",
     "modified": "2016-04-22T12:42:12.449Z",
     "author": "",
@@ -75,7 +75,7 @@ const level_1_0_0 = {
 const level_1_1_0 = {
     "meta":{
         "ref": "/assets/test_1_1_0.level",
-        "type": "application/vnd.valhalla.level+json",
+        "type": "application/vnd.bilrost.level+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",
@@ -92,7 +92,7 @@ const level_1_1_0 = {
 
 const prefab_1_0_0 = {
     "uri": "assets/prefab/test_1_0_0.prefab",
-    "type": "application/vnd.valhalla.prefab+json",
+    "type": "application/vnd.bilrost.prefab+json",
     "created": "2016-03-18T15:04:02.267Z",
     "modified": "2016-04-22T12:42:12.449Z",
     "author": "",
@@ -106,7 +106,7 @@ const prefab_1_0_0 = {
 const prefab_1_1_0 = {
     "meta":{
         "ref": "/assets/prefab/test_1_1_0.prefab",
-        "type": "application/vnd.valhalla.prefab+json",
+        "type": "application/vnd.bilrost.prefab+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",
@@ -124,7 +124,7 @@ const prefab_1_1_0 = {
 const prefab_2_1_0 = {
     "meta":{
         "ref": "/assets/prefab/test_2_1_0.prefab",
-        "type": "application/vnd.valhalla.prefab+json",
+        "type": "application/vnd.bilrost.prefab+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",
@@ -142,7 +142,7 @@ const prefab_2_1_0 = {
 const asset_wrong_type = {
     "meta": {
         "ref": "/assets/asset_wrong_type.prefab",
-        "type": "application/vnd.valhalla.cinematic+json",
+        "type": "application/vnd.bilrost.cinematic+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",
@@ -160,7 +160,7 @@ const asset_wrong_type = {
 const asset_wrong_schema = {
     "meta":{
         "ref": "/assets/asset_wrong_schema.prefab",
-        "type": "application/vnd.valhalla.prefab+json",
+        "type": "application/vnd.bilrost.prefab+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",
@@ -178,7 +178,7 @@ const asset_wrong_schema = {
 const asset_invalid_path = {
     "meta":{
         "ref": "/assets/asset_invalid_path.prefab",
-        "type": "application/vnd.valhalla.prefab+json",
+        "type": "application/vnd.bilrost.prefab+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "author": "",

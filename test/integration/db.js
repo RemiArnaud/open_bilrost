@@ -15,7 +15,7 @@ describe('Check database behaviors', function () {
     const sample_asset = {
         "meta":{
             "ref": "/assets/sync_test.level",
-            "type": "application/vnd.valhalla.level+json",
+            "type": "application/vnd.bilrost.level+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "version":"1.1.0",

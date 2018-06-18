@@ -1,9 +1,8 @@
 'use strict';
 
-// Status object for valhalla server
-
+// Status object for bilrost server
 class Status {
-    
+
     constructor (ref, map) {
         this.status = {
             "state": undefined,
@@ -25,7 +24,7 @@ class Status {
     get_ref () {
         return this.status.ref;
     }
-    
+
     set_state (state) {
         this.status.state = state;
         let description = this.map_states_to_descriptions[state];

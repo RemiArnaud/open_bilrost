@@ -55,7 +55,7 @@ describe('Run Version Control related functional tests for the API', function ()
                 })
                 .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
-                .expect("Content-Type", "application/vnd.valhalla.workspace+json")
+                .expect("Content-Type", "application/vnd.bilrost.workspace+json")
                 .expect(200)
                 .end((err, res) => {
                     if (err) {

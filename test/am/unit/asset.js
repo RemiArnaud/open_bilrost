@@ -15,7 +15,7 @@ describe('Run set of test for asset management methods', function () {
     const test_level = {
         "meta":{
             "ref": "/assets/levels/test_001.level",
-            "type": "application/vnd.valhalla.level+json",
+            "type": "application/vnd.bilrost.level+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "version":"1.1.0",
@@ -42,7 +42,7 @@ describe('Run set of test for asset management methods', function () {
             ".bilrost/assets/prefab/mall.prefab": () => Promise.resolve({
                 meta: {
                     ref: '/assets/prefab/mall.prefab',
-                    type: 'application/vnd.valhalla.prefab+json',
+                    type: 'application/vnd.bilrost.prefab+json',
                     created: '2016-03-16T14:41:10.384Z',
                     modified: '2016-03-18T10:54:05.870Z',
                     author: '',
@@ -57,7 +57,7 @@ describe('Run set of test for asset management methods', function () {
             ".bilrost/assets/prefab/test_1_1_0.prefab": () => Promise.resolve({
                 meta: {
                     ref: '/assets/prefab/test_1_1_0.prefab',
-                    type: 'application/vnd.valhalla.prefab+json',
+                    type: 'application/vnd.bilrost.prefab+json',
                     created: '2016-03-16T14:41:10.384Z',
                     modified: '2016-03-18T10:54:05.870Z',
                     author: '',
@@ -420,7 +420,7 @@ describe('Run set of test for asset management methods', function () {
         const test_002 = {
             "meta":{
                 "ref": "/assets/levels/test_002.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -437,7 +437,7 @@ describe('Run set of test for asset management methods', function () {
         const test_003 = {
             "meta":{
                 "ref": "/assets/levels/test/003/test_003.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -622,7 +622,7 @@ describe('Run set of test for asset management methods', function () {
             const reference_asset = {
                 "meta":{
                     "ref": "/assets/levels/reference_asset.level",
-                    "type": "application/vnd.valhalla.level+json",
+                    "type": "application/vnd.bilrost.level+json",
                     "created": "2016-03-16T14:41:10.384Z",
                     "modified": "2016-03-18T10:54:05.870Z",
                     "version":"1.1.0",
