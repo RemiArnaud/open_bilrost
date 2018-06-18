@@ -4,7 +4,7 @@ const path = require('path').posix;
 const Test_util = require('../../../util/test_util');
 const status_config = require('../../../../assetmanager/status.config.json');
 
-var test_util = new Test_util("status", "good_repo_v4");
+var test_util = new Test_util("status", "good_repo_v6");
 
 describe('Run Status related functional tests for the API', function () {
 

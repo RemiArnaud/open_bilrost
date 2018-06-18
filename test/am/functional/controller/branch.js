@@ -7,7 +7,7 @@ const path = require('path');
 const should = require('should');
 const Test_util = require('../../../util/test_util');
 
-const test_util = new Test_util("branch", "good_repo_v4");
+const test_util = new Test_util("branch", "good_repo_v6");
 
 describe('Run Workspace related functional tests for the API', function () {
 
@@ -34,7 +34,7 @@ describe('Run Workspace related functional tests for the API', function () {
                 description: test_util.get_example_project().description.comment,
                 organization: test_util.get_example_project().owner.login,
                 project_name: test_util.get_example_project().name,
-                branch: 'good_repo_v4',
+                branch: 'good_repo_v6',
             })
             .set("Content-Type", "application/json")
             .set("Accept", 'application/json')
@@ -78,7 +78,7 @@ describe('Run Workspace related functional tests for the API', function () {
                 if (err) {
                     return done({ error: err.toString(), status: res.status, body: res.body });
                 }
-                res.body.should.equal('good_repo_v4');
+                res.body.should.equal('good_repo_v6');
                 done();
             });
     });
@@ -115,7 +115,7 @@ describe('Run Workspace related functional tests for the API', function () {
     it('Change to existing branch', function (done) {
         this.timeout(4000);
         test_util.client
-            .post('/assetmanager/workspaces/' + name + '/branch/good_repo_v4/change')
+            .post('/assetmanager/workspaces/' + name + '/branch/good_repo_v6/change')
             .send()
             .set('Accept', 'application/json')
             .expect(200)
@@ -145,7 +145,7 @@ describe('Run Workspace related functional tests for the API', function () {
 
     it('Fail to create already existing branch', function (done) {
         test_util.client
-            .put('/assetmanager/workspaces/' + name + '/branch/good_repo_v4')
+            .put('/assetmanager/workspaces/' + name + '/branch/good_repo_v6')
             .send()
             .set('Accept', 'application/json')
             .expect(500)

@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const Test_util = require('../../../util/test_util');
 
-var test_util = new Test_util("asset", "good_repo_v4");
+var test_util = new Test_util("asset", "good_repo_v6");
 
 describe('Run Asset related functional tests for the API', function () {
 

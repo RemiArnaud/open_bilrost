@@ -60,7 +60,7 @@ const ifs_map = {
 describe('Stage Manager', function() {
     let subscription_manager, stage_manager;
 
-    let test_util = new Test_util("stage", "good_repo_v4");
+    let test_util = new Test_util("stage", "good_repo_v6");
 
     const workspace_identifiers = {
         guid: "e39d0f72c81c445ba801dsssssss45219sddsdss",
@@ -75,7 +75,7 @@ describe('Stage Manager', function() {
         this.timeout(8*this.timeout()); // = 5 * default = 5 * 2000 = 10000
         test_util.create_eloise_fixtures()
             .then(() => {
-                mock_workspace(workspace_identifiers.guid, path.join(test_util.get_eloise_path()), "s3", ifs_map, 'good_repo_v4')
+                mock_workspace(workspace_identifiers.guid, path.join(test_util.get_eloise_path()), "s3", ifs_map, 'good_repo_v6')
                     .then(workspace => {
                         workspace_instance = workspace;
                         workspace.properties = test_util.eloise;

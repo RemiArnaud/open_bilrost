@@ -11,7 +11,7 @@ const assets_collection = require('../../../assetmanager/databases/assets_collec
 const status_collection = require('../../../assetmanager/databases/status_collection');
 const workspace_utilities = require('../../../assetmanager/workspace_utilities');
 
-const test_util = new Test_util("fixtures_status", "bad_repo_v4");
+const test_util = new Test_util("fixtures_status", "bad_repo_v6");
 
 let asset_status_instance, workspace_status_instance, database, collection;
 

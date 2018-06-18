@@ -8,7 +8,7 @@ const fs = require('fs-extra');
 const Path = require('path');
 
 const Test_util = require('../util/test_util');
-const test_util = new Test_util("integration__db_sync", "good_repo_v4");
+const test_util = new Test_util("integration__db_sync", "good_repo_v6");
 
 describe('Check database behaviors', function () {
 

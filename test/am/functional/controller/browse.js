@@ -7,7 +7,7 @@ const favorite = require('../../../../assetmanager/favorite')();
 
 describe('Run Content Browser related test for content browser api', function () {
 
-    var test_util = new Test_util("browse", "good_repo_v4");
+    var test_util = new Test_util("browse", "good_repo_v6");
 
     before("Starting a Content Browser server", done => test_util.start_server(done));
 

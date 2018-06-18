@@ -200,7 +200,6 @@ class Test_util {
         this.test_level = {
             'meta':{
                 'ref': '/assets/levels/test_001.level',
-                'type': 'application/vnd.bilrost.level+json',
                 'created': '2016-03-16T14:41:10.384Z',
                 'modified': '2016-03-18T10:54:05.870Z',
                 'version':'1.1.0',

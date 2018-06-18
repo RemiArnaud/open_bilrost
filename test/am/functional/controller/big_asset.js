@@ -9,7 +9,7 @@ const v8 = require('v8');
 
 const Test_util = require('../../../util/test_util');
 
-const test_util = new Test_util("big_asset", "good_repo_v4");
+const test_util = new Test_util("big_asset", "good_repo_v6");
 
 const MB = 1024 * 1024;
 let random_names = [];

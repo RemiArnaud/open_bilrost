@@ -34,7 +34,7 @@ const partial_ifs_map = {
 
 describe('Valid object', function () {
 
-    var test_util = new Test_util("valid_unit_test", "bad_repo_v4");
+    var test_util = new Test_util("valid_unit_test", "bad_repo_v6");
 
     const workspace_identifiers = {
         guid: "e39d0f72c81c445ba801dsssssss45219sddsdss",

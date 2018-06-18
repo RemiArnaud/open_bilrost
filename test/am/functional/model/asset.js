@@ -14,13 +14,13 @@ const Workspace = require('../../../../assetmanager/workspace')({
 });
 const asset = require('../../../../assetmanager/asset');
 const Test_util = require('../../../util/test_util');
-const svn_repo_name = 'bad_repo_v4';
+const svn_repo_name = 'bad_repo_v6';
 
 let workspace, asset_instance;
 
 const isWin = /^win/.test(process.platform);
 
-var test_util = new Test_util("model_asset", "bad_repo_v4");
+var test_util = new Test_util("model_asset", "bad_repo_v6");
 const fixtures = test_util.get_fixtures();
 
 let example_file_uri = path.join(fixtures, svn_repo_name);

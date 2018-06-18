@@ -70,7 +70,7 @@ const ifs_map = {
 describe('Subscription Manager', function() {
     let subscription_manager;
 
-    let test_util = new Test_util("subscription", "good_repo_v4");
+    let test_util = new Test_util("subscription", "good_repo_v6");
 
     const workspace_identifiers = {
         guid: "e39d0f72c81c445ba801dsssssss45219sddsdss",
@@ -86,7 +86,7 @@ describe('Subscription Manager', function() {
         test_util.create_eloise_fixtures()
             .then(() => test_util.create_eloise_workspace_properties_file())
             .then(() => {
-                mock_workspace(workspace_identifiers.guid, path.join(test_util.get_eloise_path()), "s3", ifs_map, 'good_repo_v4')
+                mock_workspace(workspace_identifiers.guid, path.join(test_util.get_eloise_path()), "s3", ifs_map, 'good_repo_v6')
                     .then(workspace => {
                         workspace_instance = workspace;
                         workspace.properties = test_util.eloise;

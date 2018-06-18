@@ -8,7 +8,7 @@ const Test_util = require('../../util/test_util');
 
 describe('Workspace object', function () {
 
-    const test_util = new Test_util("workspace_object", "bad_repo_v4");
+    const test_util = new Test_util("workspace_object", "bad_repo_v6");
 
     const Workspace = require('../../../assetmanager/workspace')({
         amazon_client: {},

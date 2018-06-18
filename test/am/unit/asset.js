@@ -8,7 +8,7 @@ const Test_util = require('../../util/test_util');
 
 describe('Run set of test for asset management methods', function () {
     const Asset = require('../../../assetmanager/asset');
-    const test_util = new Test_util("unit_asset", "good_repo_v4");
+    const test_util = new Test_util("unit_asset", "good_repo_v6");
 
     let workspace, asset_instance;
 
@@ -99,7 +99,7 @@ describe('Run set of test for asset management methods', function () {
                 test_util.write_eloise_resource_file('/mall/mall_demo.assembly', 'foo');
                 test_util.write_eloise_resource_file('/test/a/test_005.assembly', 'foo');
                 test_util.write_eloise_resource_file('/.bilrost/project', test_util.project1_file);
-                return mock_workspace(test_util.eloise.guid, test_util.get_eloise_path(), "s3", ifs_map, "good_repo_v4")
+                return mock_workspace(test_util.eloise.guid, test_util.get_eloise_path(), "s3", ifs_map, "good_repo_v6")
                     .then(wrkspc => {
                         workspace = wrkspc;
                         asset_instance = wrkspc.asset;

@@ -7,7 +7,7 @@ const should = require('should');
 const path = require('path').posix;
 const Test_util = require('../../../util/test_util');
 
-var test_util = new Test_util('populate_workspace', 'good_repo_v4');
+var test_util = new Test_util('populate_workspace', 'good_repo_v6');
 
 describe('Run Workspace related functional tests for the API', function () {
     /* faking rest3d-client
@@ -64,8 +64,8 @@ describe('Run Workspace related functional tests for the API', function () {
                     let obj = test_util.get_favorite().search(test_util.get_carol_file_uri());
                     // jshint expr:true
                     obj.should.be.an.Object;
-                    should.equal(test_util.does_workspace_exist('good_repo_v4'), true);
-                    should.equal(test_util.does_workspace_internals_valid('good_repo_v4'), true);
+                    should.equal(test_util.does_workspace_exist('good_repo_v6'), true);
+                    should.equal(test_util.does_workspace_internals_valid('good_repo_v6'), true);
                     workspace_guid = res.body.guid;
                     done();
                 });
@@ -82,7 +82,7 @@ describe('Run Workspace related functional tests for the API', function () {
                         return done({ error: err.toString(), status: res.status, body: res.body });
                     }
                     test_util.get_favorite().search(test_util.get_eloise_file_uri()).should.equal(false);
-                    should.equal(test_util.does_workspace_exist('good_repo_v4'), false);
+                    should.equal(test_util.does_workspace_exist('good_repo_v6'), false);
                     done();
                 });
         });
