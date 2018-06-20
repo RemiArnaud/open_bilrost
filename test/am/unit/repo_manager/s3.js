@@ -31,6 +31,7 @@ const generate_string = charCode => {
 const sha256 = content => crypto.createHash('sha256').update(content).digest('hex');
 
 const cache = {
+    get_path: key => path.resolve(test_path, 'Cache', key ? key : ''),
     write: () => Promise.resolve(),
     read: () => Promise.resolve(),
     exist: () => Promise.reject()
