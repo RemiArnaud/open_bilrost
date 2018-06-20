@@ -110,16 +110,24 @@ const Workspace = function Workspace (file_uri, context, options) {
 
     };
 
-    const instantiate_branch_and_get_current_branch = () => {
+    const get_current_branch = () => {
         const git_repo_manager = repo_manager.create({
             host_vcs: 'git',
             cwd: this.adapter.path
         });
-        this.branch = branch_model(git_repo_manager);
-        return this.branch.get_name()
+        const branch_manager = branch_model(git_repo_manager);
+        return branch_manager.get_name()
             .then(branch => {
                 this.branch_name = branch;
             });
+    };
+
+    const instantiate_branch_manager = () => {
+        const git_repo_manager = repo_manager.create({
+            host_vcs: 'git',
+            cwd: this.adapter.path
+        });
+        this.branch = branch_model(git_repo_manager, this.subscription_manager, this.stage_manager);
     };
 
     const read_workspace_properties = () => {
@@ -389,13 +397,14 @@ const Workspace = function Workspace (file_uri, context, options) {
     };
 
     return create_ifs_adapter()
-        .then(instantiate_branch_and_get_current_branch)
+        .then(get_current_branch)
         .then(read_project_properties)
         .then(read_workspace_properties)
         .then(build_database)
         .then(check_invalid_status)
         .then(instantiate_subscription_manager)
         .then(instantiate_stage_manager)
+        .then(instantiate_branch_manager)
         .then(instantiate_resource)
         .then(instantiate_asset)
         .then(instantiate_status_manager)

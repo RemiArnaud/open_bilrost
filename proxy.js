@@ -6,7 +6,6 @@ const path = require('path');
 const bunyan = require('bunyan');
 const repo_manager = require('./assetmanager/repo_manager');
 
-
 //
 // CONFIGURATION
 //

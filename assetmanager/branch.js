@@ -7,8 +7,8 @@ const transform_error = err => {
     throw this;
 };
 
-module.exports = git_repo_manager => {
-    
+module.exports = (git_repo_manager, ifs_adapter, subscription_manager, stage_manager) => {
+
     const get_name = () => git_repo_manager.get_current_branch()
         .catch(transform_error);
 
