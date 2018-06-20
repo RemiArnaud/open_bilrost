@@ -127,7 +127,7 @@ const Workspace = function Workspace (file_uri, context, options) {
             host_vcs: 'git',
             cwd: this.adapter.path
         });
-        this.branch = branch_model(git_repo_manager, this.subscription_manager, this.stage_manager);
+        this.branch = branch_model(git_repo_manager, this);
     };
 
     const read_workspace_properties = () => {
@@ -321,6 +321,11 @@ const Workspace = function Workspace (file_uri, context, options) {
         this.update_subscriptions();
         return this.save();
     };
+    this.remove_all_subscriptions = () => {
+        this.subscription_manager.remove_all_subscriptions();
+        this.update_subscriptions();
+        return this.save();
+    };
     this.update_subscriptions = () => {
         this.properties.subscriptions = this.subscription_manager.get_subscriptions();
     };
@@ -341,6 +346,11 @@ const Workspace = function Workspace (file_uri, context, options) {
     this.update_stage = () => {
         this.properties.stage = this.stage_manager.get_stage();
     };
+    this.empty_stage = () => {
+        this.stage_manager.empty_stage();
+        this.update_stage();
+        return this.save();
+    };
     this.commit_files = message => this.with_lock(() => this.resource.commit_manager.get_commitable_files()
         .then(resource_commitable_files => {
             let resource_commit_id, asset_commit_id;
@@ -352,9 +362,7 @@ const Workspace = function Workspace (file_uri, context, options) {
                 .then(() => this.asset.commit_manager.commit_files(message))
                 .then(id => {
                     asset_commit_id = id;
-                    this.stage_manager.empty_stage();
-                    this.update_stage();
-                    return this.save();
+                    return this.empty_stage();
                 })
                 .then(() => {
                     const res = {

@@ -14,9 +14,9 @@ var isWin = /^win/.test(process.platform);
 /*
 TODO hide files to writeJson, createFolder and outputJson methods
 "fswin": "^2.15.1031" I used this module for hiding folder/files
-on windows but I couldn't get write access. Need to find another 
+on windows but I couldn't get write access. Need to find another
 solution.
-var fswin = '';   
+var fswin = '';
 if(/^win/.test(process.platform)){
     fswin = require('fswin');
 }*/
@@ -126,7 +126,7 @@ var local_FS_adapter = function (base_path) {
     function getDirectories(path) {
         return promisify(fs.readdir)(absolute_path(path))
             .then(files =>
-                Promise.all(files.map(file => 
+                Promise.all(files.map(file =>
                     promisify(fs.stat)(join(absolute_path(path), file))
                         .then(stat => {
                             stat.name = file;
@@ -175,7 +175,7 @@ var local_FS_adapter = function (base_path) {
         var promise = promisify(fs.readdir)(absolute_path(path));
         if( name ) {
             promise = promise.then(filter_name(name));
-        } 
+        }
         if( maxResults && start ) {
             promise = promise.then(slice(start, maxResults));
         }
@@ -285,7 +285,7 @@ var local_FS_adapter = function (base_path) {
                 }
                 return boolean;
             })(query_json);
-            
+
         };
 
         return new Promise(function (resolve, reject){
@@ -320,7 +320,7 @@ var local_FS_adapter = function (base_path) {
                 });
         });
     }
-    
+
     if (isPlatformWin() && base_path !== '/' && _p.isAbsolute(base_path)) {
         base_path = base_path.substring(1);
     }
@@ -340,7 +340,7 @@ var local_FS_adapter = function (base_path) {
                 return new Promise( function(resolve, reject){
                     fs.remove( absolute_path(path), function(err){
                         if(err){
-                            reject(err);                            
+                            reject(err);
                         } else {
                             resolve();
                         }
@@ -354,7 +354,7 @@ var local_FS_adapter = function (base_path) {
                 return new Promise( function(resolve, reject){
                     fs.readJson(absolute_path(path), function(err, json){
                         if(err){
-                            reject(err);                            
+                            reject(err);
                         } else {
                             resolve(json);
                         }
@@ -365,7 +365,7 @@ var local_FS_adapter = function (base_path) {
                 return new Promise( function(resolve, reject){
                     fs.readFile(absolute_path(path), 'utf8', function(err, json) {
                         if(err){
-                            reject(err);                            
+                            reject(err);
                         } else {
                             resolve(json);
                         }
@@ -378,7 +378,7 @@ var local_FS_adapter = function (base_path) {
                     path = absolute_path(path);
                     fs.writeJson(path, json, function(err){
                         if(err){
-                            reject(err); 
+                            reject(err);
                         } else {
                             resolve(json);
                         }
@@ -409,7 +409,7 @@ var local_FS_adapter = function (base_path) {
                     var fullpath = absolute_path(path);
                     fs.outputJson(fullpath, json, function(err){
                         if(err){
-                            reject(err); 
+                            reject(err);
                         } else {
                             resolve(json);
                         }
@@ -432,7 +432,7 @@ var local_FS_adapter = function (base_path) {
                 return new Promise(function(resolve, reject){
                     recursive(absolute_path(path), list_of_files_to_ignore ? list_of_files_to_ignore : [], function(err, files){
                         if(err){
-                            reject(err); 
+                            reject(err);
                         } else {
                             resolve(files.map(function (file) {
                                 return relative_path(file);
@@ -453,7 +453,7 @@ var local_FS_adapter = function (base_path) {
                 return new Promise( (resolve, reject) => {
                     fs.access(absolute_path(path), err => {
                         if (err) {
-                            reject(err);  
+                            reject(err);
                         }
                         resolve();
                     });

@@ -93,6 +93,11 @@ class Subscription_manager {
             }
         });
     }
+
+    remove_all_subscriptions () {
+        this.subscriptions = [];
+    }
+
 }
 
 module.exports = Subscription_manager;
