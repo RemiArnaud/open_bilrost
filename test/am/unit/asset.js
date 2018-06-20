@@ -8,14 +8,14 @@ const Test_util = require('../../util/test_util');
 
 describe('Run set of test for asset management methods', function () {
     const Asset = require('../../../assetmanager/asset');
-    const test_util = new Test_util("unit_asset", "good_repo_v4");
+    const test_util = new Test_util("unit_asset", "good_repo_v6");
 
     let workspace, asset_instance;
 
     const test_level = {
         "meta":{
             "ref": "/assets/levels/test_001.level",
-            "type": "application/vnd.valhalla.level+json",
+            "type": "application/vnd.bilrost.level+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "version":"1.1.0",
@@ -42,7 +42,7 @@ describe('Run set of test for asset management methods', function () {
             ".bilrost/assets/prefab/mall.prefab": () => Promise.resolve({
                 meta: {
                     ref: '/assets/prefab/mall.prefab',
-                    type: 'application/vnd.valhalla.prefab+json',
+                    type: 'application/vnd.bilrost.prefab+json',
                     created: '2016-03-16T14:41:10.384Z',
                     modified: '2016-03-18T10:54:05.870Z',
                     author: '',
@@ -57,7 +57,7 @@ describe('Run set of test for asset management methods', function () {
             ".bilrost/assets/prefab/test_1_1_0.prefab": () => Promise.resolve({
                 meta: {
                     ref: '/assets/prefab/test_1_1_0.prefab',
-                    type: 'application/vnd.valhalla.prefab+json',
+                    type: 'application/vnd.bilrost.prefab+json',
                     created: '2016-03-16T14:41:10.384Z',
                     modified: '2016-03-18T10:54:05.870Z',
                     author: '',
@@ -99,7 +99,7 @@ describe('Run set of test for asset management methods', function () {
                 test_util.write_eloise_resource_file('/mall/mall_demo.assembly', 'foo');
                 test_util.write_eloise_resource_file('/test/a/test_005.assembly', 'foo');
                 test_util.write_eloise_resource_file('/.bilrost/project', test_util.project1_file);
-                return mock_workspace(test_util.eloise.guid, test_util.get_eloise_path(), "s3", ifs_map, "good_repo_v4")
+                return mock_workspace(test_util.eloise.guid, test_util.get_eloise_path(), "s3", ifs_map, "good_repo_v6")
                     .then(wrkspc => {
                         workspace = wrkspc;
                         asset_instance = wrkspc.asset;
@@ -420,7 +420,7 @@ describe('Run set of test for asset management methods', function () {
         const test_002 = {
             "meta":{
                 "ref": "/assets/levels/test_002.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -437,7 +437,7 @@ describe('Run set of test for asset management methods', function () {
         const test_003 = {
             "meta":{
                 "ref": "/assets/levels/test/003/test_003.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -622,7 +622,7 @@ describe('Run set of test for asset management methods', function () {
             const reference_asset = {
                 "meta":{
                     "ref": "/assets/levels/reference_asset.level",
-                    "type": "application/vnd.valhalla.level+json",
+                    "type": "application/vnd.bilrost.level+json",
                     "created": "2016-03-16T14:41:10.384Z",
                     "modified": "2016-03-18T10:54:05.870Z",
                     "version":"1.1.0",

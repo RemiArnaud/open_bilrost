@@ -9,7 +9,7 @@ const v8 = require('v8');
 
 const Test_util = require('../../../util/test_util');
 
-const test_util = new Test_util("big_asset", "good_repo_v4");
+const test_util = new Test_util("big_asset", "good_repo_v6");
 
 const MB = 1024 * 1024;
 let random_names = [];
@@ -68,7 +68,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/vnd.bilrost.level+json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {

@@ -87,11 +87,11 @@ describe('handler', function () {
                 assert.equal(233, res.statusCode);
             });
         });
-        describe('(object, status_code, valhalla_type)', () => {
+        describe('(object, status_code, mime_type)', () => {
             const obj = {one: 1};
-            it('sets content-type to valhalla', () => {
+            it('sets content-type to bilrost', () => {
                 handler().sendJSON(obj, 200, 'whatever');
-                assert.equal('application/vnd.valhalla.whatever+json', res._headers['content-type']);
+                assert.equal('application/vnd.bilrost.whatever+json', res._headers['content-type']);
             });
         });
     });

@@ -49,7 +49,7 @@ class Test_util {
             'pushed_at': '2011-01-26T19:01:12Z',
             'created_at': '2011-01-26T19:01:12Z',
             'updated_at': '2011-01-26T19:14:43Z',
-            'type': 'application/vnd.valhalla.workspace+json',
+            'type': 'application/vnd.bilrost.workspace+json',
             'file_uri': this.get_eloise_file_uri(),
             'tags': ['Hello', 'World'],
             'subscriptions': [],
@@ -79,7 +79,7 @@ class Test_util {
             'pushed_at': '2016-06-28T16:19:51Z',
             'created_at': '2016-06-27T18:31:40Z',
             'updated_at': '2016-11-17T20:15:11Z',
-            'type': 'application/vnd.valhalla.project+json',
+            'type': 'application/vnd.bilrost.project+json',
             'properties': {
                 'ignore': [
                     '.bilrost/workspace',
@@ -96,7 +96,7 @@ class Test_util {
             'pushed_at': '2011-01-26T19:01:12Z',
             'created_at': '2011-01-26T19:01:12Z',
             'updated_at': '2011-01-26T19:14:43Z',
-            'type': 'application/vnd.valhalla.workspace+json',
+            'type': 'application/vnd.bilrost.workspace+json',
             'file_uri': this.get_alice_file_uri(),
             'tags': ['Hello', 'World'],
             'subscriptions': [],
@@ -115,7 +115,7 @@ class Test_util {
             'pushed_at': '2011-01-26T19:06:43Z',
             'created_at': '2011-01-26T19:01:12Z',
             'updated_at': '2011-01-26T19:14:43Z',
-            'type': 'application/vnd.valhalla.workspace+json',
+            'type': 'application/vnd.bilrost.workspace+json',
             'file_uri': this.get_bob_file_uri(),
             'tags': ['Hello', 'World'],
             'subscriptions': [],
@@ -145,7 +145,7 @@ class Test_util {
             private: true,
             description:
             {
-                type: 'application/vnd.valhalla.project+json',
+                type: 'application/vnd.bilrost.project+json',
                 tags: ['Hello', 'World'],
                 comment: 'this is my first repo!',
                 host_vcs: 's3',
@@ -178,7 +178,7 @@ class Test_util {
             private: true,
             description:
             {
-                type: 'application/vnd.valhalla.project+json',
+                type: 'application/vnd.bilrost.project+json',
                 tags: ['Hello', 'World'],
                 comment: 'this is my first repo!',
                 host_vcs: 's3',
@@ -200,7 +200,6 @@ class Test_util {
         this.test_level = {
             'meta':{
                 'ref': '/assets/levels/test_001.level',
-                'type': 'application/vnd.valhalla.level+json',
                 'created': '2016-03-16T14:41:10.384Z',
                 'modified': '2016-03-18T10:54:05.870Z',
                 'version':'1.1.0',

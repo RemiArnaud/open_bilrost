@@ -8,14 +8,14 @@ const fs = require('fs-extra');
 const Path = require('path');
 
 const Test_util = require('../util/test_util');
-const test_util = new Test_util("integration__db_sync", "good_repo_v4");
+const test_util = new Test_util("integration__db_sync", "good_repo_v6");
 
 describe('Check database behaviors', function () {
 
     const sample_asset = {
         "meta":{
             "ref": "/assets/sync_test.level",
-            "type": "application/vnd.valhalla.level+json",
+            "type": "application/vnd.bilrost.level+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "version":"1.1.0",

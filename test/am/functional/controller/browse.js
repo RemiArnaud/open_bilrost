@@ -7,7 +7,7 @@ const favorite = require('../../../../assetmanager/favorite')();
 
 describe('Run Content Browser related test for content browser api', function () {
 
-    var test_util = new Test_util("browse", "good_repo_v4");
+    var test_util = new Test_util("browse", "good_repo_v6");
 
     before("Starting a Content Browser server", done => test_util.start_server(done));
 
@@ -159,7 +159,7 @@ describe('Run Content Browser related test for content browser api', function ()
                 .send({ "file_uri": test_util.get_bob_file_uri() })
                 .set("Content-Type", 'application/json')
                 .set("Accept", 'application/json')
-                .expect('Content-Type', 'application/vnd.valhalla.workspace+json')
+                .expect('Content-Type', 'application/vnd.bilrost.workspace+json')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -451,7 +451,7 @@ describe('Run Content Browser related test for content browser api', function ()
                 .get(path.join('/contentbrowser/workspaces/', test_util.get_bob_workspace().guid, test_util.get_test_level().meta.ref))
                 .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
-                .expect("Content-Type", "application/vnd.valhalla.level+json")
+                .expect("Content-Type", "application/vnd.bilrost.level+json")
                 .expect(200)
                 .end((err, res) => {
                     let obj = res.body;

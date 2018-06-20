@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const Test_util = require('../../../util/test_util');
 
-var test_util = new Test_util("asset", "good_repo_v4");
+var test_util = new Test_util("asset", "good_repo_v6");
 
 describe('Run Asset related functional tests for the API', function () {
 
@@ -42,7 +42,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {
@@ -69,7 +69,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send()
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {
@@ -133,7 +133,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {
@@ -167,7 +167,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(201)
                 .end((err, res) => {
@@ -200,7 +200,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(400)
                 .end((err, res) => {
@@ -224,7 +224,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(400)
                 .end((err, res) => {
@@ -251,7 +251,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), asset_ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .expect(400)
                 .end((err, res) => {
@@ -270,7 +270,7 @@ describe('Run Asset related functional tests for the API', function () {
         const test_002 = {
             "meta":{
                 "ref": "/assets/levels/test_002.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -287,7 +287,7 @@ describe('Run Asset related functional tests for the API', function () {
         const test_003 = {
             "meta":{
                 "ref": "/assets/levels/test/003/test_003.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -305,7 +305,7 @@ describe('Run Asset related functional tests for the API', function () {
         const test_005 = {
             "meta":{
                 "ref": "/assets/levels/test_005.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -349,8 +349,8 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .post(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'rename', test_util.get_test_level().meta.ref))
                 .send({ new: new_asset_ref})
-                .set("Content-Type", "application/vnd.valhalla.level+json")
-                .set("Accept", 'application/json')
+                .set("Content-Type", "application/vnd.bilrost.asset+json")
+                .set("Accept", "application/json")
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(200)
                 .end((err, res) => {
@@ -403,7 +403,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .post(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'rename', '/assets/unvalid'))
                 .send({ new: new_asset_ref})
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/vnd.bilrost.asset+json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(404)
@@ -421,7 +421,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .post(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'rename', new_asset_ref))
                 .send({ new: new_asset_ref})
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/vnd.bilrost.asset+json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", "2016-03-18T10:54:05.860Z")
                 .expect(412)
@@ -439,7 +439,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .post(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'rename', test_003.meta.ref))
                 .send({ new: '/invalid' })
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(400)
@@ -457,7 +457,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .post(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'rename', test_003.meta.ref))
                 .send({ new: '/invalid' })
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(400)
@@ -487,7 +487,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(200)
@@ -518,7 +518,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", "2016-03-18T10:54:05.860Z")
                 .expect(412)
@@ -546,7 +546,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", modified)
                 .expect(400)
@@ -574,7 +574,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.client
                 .put(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
                 .send(asset)
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", modified)
                 .expect(400)
@@ -597,7 +597,7 @@ describe('Run Asset related functional tests for the API', function () {
 
             test_util.client
                 .delete(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(204)
@@ -624,7 +624,7 @@ describe('Run Asset related functional tests for the API', function () {
             test_util.remove_resource_file("/test/test.assembly");
             test_util.client
                 .delete(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), ref))
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(204)
@@ -644,7 +644,7 @@ describe('Run Asset related functional tests for the API', function () {
 
             test_util.client
                 .delete(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), 'assets/invalid'))
-                .set("Content-Type", "application/vnd.valhalla.level+json")
+                .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
                 .set("Last-Modified", test_util.get_test_level().meta.modified)
                 .expect(404)
@@ -662,7 +662,7 @@ describe('Run Asset related functional tests for the API', function () {
             const reference_asset = {
                 "meta":{
                     "ref": "/assets/levels/reference_asset.level",
-                    "type": "application/vnd.valhalla.level+json",
+                    "type": "application/json",
                     "created": "2016-03-16T14:41:10.384Z",
                     "modified": "2016-03-18T10:54:05.870Z",
                     "version":"1.1.0",
@@ -683,7 +683,7 @@ describe('Run Asset related functional tests for the API', function () {
 
                 test_util.client
                     .delete(path.join('/assetmanager/workspaces/', test_util.get_workspace_guid(), test_util.get_test_level().meta.ref))
-                    .set("Content-Type", "application/vnd.valhalla.level+json")
+                    .set("Content-Type", "application/json")
                     .set("Accept", 'application/json')
                     .set("Last-Modified", test_util.get_test_level().meta.modified)
                     .expect(403)

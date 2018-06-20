@@ -60,7 +60,7 @@ Response:
         "tags": ["Hello", "World"],
         "comment": "this is my first repo!",
         "svn_url": "https://svn.starbreeze.com/svn/sb-otwd/HelloWorld",
-        "type": "application/vnd.valhalla.project+json",
+        "type": "application/vnd.bilrost.project+json",
         "settings": {}
     },
     "size": 40483,
@@ -76,7 +76,7 @@ Response:
 }
 ```
 
-- *description field* is originally dedicated to store a short description of the repository. Nevertheless, we are going to used this field to welcome a stingified json that is parsed by Valhalla.
+- *description field* is originally dedicated to store a short description of the repository. Nevertheless, we are going to use this field to welcome a stingified json that is parsed by bilrost to identify the project. This is edited in the github repository description.
 - *settings* are engine configurations.
 - *svn_url* tells to the engine if the project is included in a SVN repository, and where it is located inside it. 
 - *resources and assets urls* are links to access to internal api related to projects.
@@ -181,7 +181,7 @@ NOTE: all branch methods won't be implemented in content browser API v1.1. Never
       "tags":["Hello", "World"],
       "comment":"this is my first repo!",
       "svn_url":"https://svn.starbreeze.com/svn/sb-otwd/HelloWorld",
-      "type":"application/vnd.valhalla.project+json",
+      "type":"application/vnd.bilrost.project+json",
       "settings":{ }
     }
     ...
@@ -189,7 +189,7 @@ NOTE: all branch methods won't be implemented in content browser API v1.1. Never
     "assets_url": "/contentbrowser/projects/organization/:project_name/:branch_name/assets/"
   }
 ```
-- *description field* is orginally dedicated to store a short description of the repository. Nevertheless, we are going to used this field to welcome a stingified json that is parsed by Valhalla.
+- *description field* is orginally dedicated to store a short description of the repository. Nevertheless, we are going to use this field to welcome a stingified json that is parsed by bilrost to identify the project. This is edited in the github repository description.
 - *settings* are engine configurations.
 - *svn_url* tells to the engine if the project is included in a SVN repository, and where it is located inside it. 
 - *resources and assets urls* are links to access to internal api related to projects.
@@ -271,7 +271,7 @@ Response:
     "updated_at": "2011-01-26T19:14:43Z",
     "tags":["Hello", "World"],
     "svn_url":"https://svn.starbreeze.com/svn/sb-otwd/HelloWorld",
-    "type":"application/vnd.valhalla.workspace+json",
+    "type":"application/vnd.bilrost.workspace+json",
     "settings":{ },
     "resources_url": "/contentbrowser/workspaces/feat/first-workspace/resources/",
     "assets_url": "/contentbrowser/workspaces/feat/first-workspace/assets/"
@@ -294,20 +294,7 @@ Response:
 - *.bilrost* folder is created by the server on local disk inside a workspace when a repository gets cloned from one specific branch. 
 - *workspace* resource is created by the server after requesting project resource to the server - for instance, /contentbrowser/project/organization/branchname - and above *.bilrost* folder gets generated.
 - *resource* could be any file. We may change that later
-- *asset* are specified in this [document](https://docs.google.com/document/d/1w_E_-v-M_aHdGohzFp3IH9xxt-gBx12N3mqkJ9SfRK0/edit) and defined by mime types in src/server/contentbrowser/types.json configuration file:
-```javascript
-{
-  "assets" : [
-    "application/vnd.valhalla.level+json",
-    "application/vnd.valhalla.prefab+json"
-    "application/vnd.valhalla.maya+json",
-    "application/vnd.valhalla.collada+json",
-    "application/vnd.valhalla.animation+json",
-    "application/vnd.valhalla.material+json"
-  ],
-  "resources" : []
-}
-```
+- *asset* are specified in this [document](https://docs.google.com/document/d/1w_E_-v-M_aHdGohzFp3IH9xxt-gBx12N3mqkJ9SfRK0/edit) and defined by mime types.
 
 #### GET | Retrieve project workspace(s)
 
@@ -344,7 +331,7 @@ Response:
 | Code | Mimetype | Data type | Data |
 |------|--------|--------|----------------------|
 | 200 | application/json | Object | { kind : "workspace-list", items : [{workspace_resource1, workspace_resource2, ... ] } |
-| 200 | application/vnd.valhalla.project+json | Object | workspace_resource |
+| 200 | application/vnd.bilrost.project+json | Object | workspace_resource |
 
 
 ##### Examples
@@ -373,7 +360,6 @@ This method has been moved [here](https://github.com/fl4re/fl4re-engine/wiki/Ass
   "items": [
     {
       "ref": "assets/levels/test_001.level",
-      "type": "application/vnd.valhalla.level+json",
       "created": "2016-03-16T14:41:10.384Z",
       "modified": "2016-03-18T10:54:05.870Z",
       "author": "",
@@ -440,7 +426,7 @@ response:
 | Code | Mimetype | Data type | Data |
 |------|--------|--------|----------------------|
 | 200 | application/json | Object | { kind : "resource-list", items : [{ asset_resource1 }, { asset_resource2 }, ... ] } |
-| 200 | application/vnd.valhalla.[asset_type]+json | Object | asset_resource |
+| 200 | application/vnd.bilrost.asset+json | Object | asset_resource |
 
 #### GET | Retrieve asset(s) from a project
 
@@ -482,7 +468,7 @@ response:
 | Code | Mimetype | Data type | Data |
 |------|--------|--------|----------------------|
 | 200 | application/json | Object | { kind : "resource-list", items : [{ asset_resource1 }, { asset_resource2 }, ... ] } |
-| 200 | application/vnd.valhalla.[asset_type]+json | Object | asset_resource |
+| 200 | application/vnd.bilrost.asset+json | Object | asset_resource |
 
 ##### Examples
 

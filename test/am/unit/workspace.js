@@ -8,7 +8,7 @@ const Test_util = require('../../util/test_util');
 
 describe('Workspace object', function () {
 
-    const test_util = new Test_util("workspace_object", "bad_repo_v4");
+    const test_util = new Test_util("workspace_object", "bad_repo_v6");
 
     const Workspace = require('../../../assetmanager/workspace')({
         amazon_client: {},
@@ -24,7 +24,7 @@ describe('Workspace object', function () {
         "pushed_at": "2011-01-26T19:01:12Z",
         "created_at": "2011-01-26T19:01:12Z",
         "updated_at": "2011-01-26T19:14:43Z",
-        "type": 'application/vnd.valhalla.workspace+json',
+        "type": 'application/vnd.bilrost.workspace+json',
         "file_uri": test_util.path_to_file_uri(path.join(test_util.get_fixtures(), 'example1')),
         "tags": ["Hello", "World"],
         "subscriptions": [],
@@ -39,7 +39,7 @@ describe('Workspace object', function () {
         "pushed_at": "2011-01-26T19:06:43Z",
         "created_at": "2011-01-26T19:01:12Z",
         "updated_at": "2011-01-26T19:14:43Z",
-        "type": 'application/vnd.valhalla.workspace+json',
+        "type": 'application/vnd.bilrost.workspace+json',
         "file_uri": test_util.path_to_file_uri(path.join(test_util.get_fixtures(), 'example2')),
         "tags": ["Hello", "World", "BIS"],
         "subscriptions": [],
@@ -49,7 +49,7 @@ describe('Workspace object', function () {
     const mall = {
         "meta": {
             "ref": "/assets/prefab/mall.prefab",
-            "type": "application/vnd.valhalla.prefab+json",
+            "type": "application/vnd.bilrost.prefab+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "author": "",

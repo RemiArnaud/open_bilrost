@@ -165,7 +165,7 @@ Example answer:
     name: 'feat/test-workspace', 
     guid: 'e39d0f72c81c445ba801dsssssss45219sddsdss', 
     description: 'This is your first workspace cloned from DLC_1 branch !', 
-    type: 'application/vnd.valhalla.workspace+json' 
+    type: 'application/vnd.bilrost.workspace+json' 
 } 
 ```
 
@@ -249,7 +249,7 @@ Request:
   </tr>
   <tr>
     <td>Content-Type*</td>
-    <td>The asset type. eg application/vnd.valhalla.material+json</td>
+    <td>The asset type. eg application/json</td>
   </tr>
   <tr>
     <td>Last-modified</td>
@@ -318,7 +318,7 @@ Request:
   </tr>
   <tr>
     <td>Content-Type</td>
-    <td>The asset type. eg application/vnd.valhalla.material+json</td>
+    <td>The asset type. eg application/json</td>
   </tr>
   <tr>
     <td>Last-modified</td>

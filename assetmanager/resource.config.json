@@ -5,15 +5,5 @@
         ".gitignore",
         ".bilrost"
     ],
-    "mime" : {
-        "application/vnd.valhalla.assembly+json" : ["assembly"],
-        "application/vnd.valhalla.material+json" : ["material"],
-        "application/vnd.valhalla.particle+json" : ["particle"]
-    },
-    "kind" : {
-        "application/vnd.valhalla.material+json" : "/validator/material",
-        "application/vnd.valhalla.assembly+json" : "/validator/assembly",
-        "model/vnd.collada+xml" : "/validator/collada",
-        "application/vnd.valhalla.particle+json" : "/validator/particle"
-    }
+    "mime" : {}
 }

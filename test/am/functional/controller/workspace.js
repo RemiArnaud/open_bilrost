@@ -7,7 +7,7 @@ const should = require('should');
 const path = require('path').posix;
 const Test_util = require('../../../util/test_util');
 
-var test_util = new Test_util("workspace", "good_repo_v4");
+var test_util = new Test_util("workspace", "good_repo_v6");
 
 describe('Run Workspace related functional tests for the API', function () {
     /* faking rest3d-client
@@ -194,7 +194,7 @@ describe('Run Workspace related functional tests for the API', function () {
                     description: test_util.get_example_project().description.comment,
                     organization: test_util.get_example_project().owner.login,
                     project_name: test_util.get_example_project().name,
-                    branch: 'good_repo_v4',
+                    branch: 'good_repo_v6',
                 })
                 .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
@@ -278,7 +278,7 @@ describe('Run Workspace related functional tests for the API', function () {
                             description: test_util.get_example_project().description.comment,
                             organization: test_util.get_example_project().owner.login,
                             project_name: test_util.get_example_project().name,
-                            branch: 'good_repo_v4',
+                            branch: 'good_repo_v6',
                         })
                         .set("Content-Type", "application/json")
                         .set("Accept", 'application/json')

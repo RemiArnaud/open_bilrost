@@ -5,7 +5,7 @@ const path = require('path').posix;
 const Test_util = require('../../../util/test_util');
 const start_rest3d_client = require('../../../util/local_rest3d_client');
 
-var test_util = new Test_util("vcs", "feature_branch_v2");
+var test_util = new Test_util("vcs", "feature_branch_v4");
 
 describe('Run Version Control related functional tests for the API', function () {
     /* faking rest3d-client
@@ -51,11 +51,11 @@ describe('Run Version Control related functional tests for the API', function ()
                     description: test_util.get_s3_example_project().description.comment,
                     organization: test_util.get_s3_example_project().owner.login,
                     project_name: test_util.get_s3_example_project().name,
-                    branch: 'feature_branch_v2',
+                    branch: 'feature_branch_v4',
                 })
                 .set("Content-Type", "application/json")
                 .set("Accept", 'application/json')
-                .expect("Content-Type", "application/vnd.valhalla.workspace+json")
+                .expect("Content-Type", "application/vnd.bilrost.workspace+json")
                 .expect(200)
                 .end((err, res) => {
                     if (err) {

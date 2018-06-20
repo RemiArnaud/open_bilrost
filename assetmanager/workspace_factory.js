@@ -61,7 +61,7 @@ const workspace_factory = {
             created_at: now_iso_date,
             updated_at: now_iso_date,
             pushed_at: null,
-            type: 'application/vnd.valhalla.workspace+json',
+            type: 'application/vnd.bilrost.workspace+json',
             branch,
             file_uri,
             tags: [],

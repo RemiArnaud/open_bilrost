@@ -14,13 +14,13 @@ const Workspace = require('../../../../assetmanager/workspace')({
 });
 const asset = require('../../../../assetmanager/asset');
 const Test_util = require('../../../util/test_util');
-const svn_repo_name = 'bad_repo_v4';
+const svn_repo_name = 'bad_repo_v6';
 
 let workspace, asset_instance;
 
 const isWin = /^win/.test(process.platform);
 
-var test_util = new Test_util("model_asset", "bad_repo_v4");
+var test_util = new Test_util("model_asset", "bad_repo_v6");
 const fixtures = test_util.get_fixtures();
 
 let example_file_uri = path.join(fixtures, svn_repo_name);
@@ -29,7 +29,7 @@ example_file_uri = 'file://'+ (isWin?'/':'') + example_file_uri;
 const test_level = {
     "meta":{
         "ref": "/assets/levels/test_001.level",
-        "type": "application/vnd.valhalla.level+json",
+        "type": "application/vnd.bilrost.level+json",
         "created": "2016-03-16T14:41:10.384Z",
         "modified": "2016-03-18T10:54:05.870Z",
         "version":"1.1.0",
@@ -237,7 +237,7 @@ describe('Run set of test for asset management methods', function () {
         const test_002 = {
             "meta":{
                 "ref": "/assets/levels/test_002.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -254,7 +254,7 @@ describe('Run set of test for asset management methods', function () {
         const test_003 = {
             "meta":{
                 "ref": "/assets/levels/test/003/test_003.level",
-                "type": "application/vnd.valhalla.level+json",
+                "type": "application/vnd.bilrost.level+json",
                 "created": "2016-03-16T14:41:10.384Z",
                 "modified": "2016-03-18T10:54:05.870Z",
                 "version":"1.1.0",
@@ -438,7 +438,7 @@ describe('Run set of test for asset management methods', function () {
             const reference_asset = {
                 "meta":{
                     "ref": "/assets/levels/reference_asset.level",
-                    "type": "application/vnd.valhalla.level+json",
+                    "type": "application/vnd.bilrost.level+json",
                     "created": "2016-03-16T14:41:10.384Z",
                     "modified": "2016-03-18T10:54:05.870Z",
                     "version":"1.1.0",

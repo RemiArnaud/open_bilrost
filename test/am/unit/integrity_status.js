@@ -11,7 +11,7 @@ const assets_collection = require('../../../assetmanager/databases/assets_collec
 const status_collection = require('../../../assetmanager/databases/status_collection');
 const workspace_utilities = require('../../../assetmanager/workspace_utilities');
 
-const test_util = new Test_util("fixtures_status", "bad_repo_v4");
+const test_util = new Test_util("fixtures_status", "bad_repo_v6");
 
 let asset_status_instance, workspace_status_instance, database, collection;
 
@@ -24,7 +24,7 @@ const example_workspace = {
     "created_at": "2011-01-26T19:01:12Z",
     "updated_at": "2011-01-26T19:14:43Z",
     "tags": ["Hello", "World"],
-    "type": "application/vnd.valhalla.workspace+json",
+    "type": "application/vnd.bilrost.workspace+json",
     "file_uri": "file:///C:/Users/Maxime/Documents/fl4re-ui/",
     "subscriptions": [],
     "stage": [],
@@ -45,7 +45,7 @@ const example_project = {
     "pushed_at": "2016-06-28T16:19:51Z",
     "created_at": "2016-06-27T18:31:40Z",
     "updated_at": "2016-11-17T20:15:11Z",
-    "type": "application/vnd.valhalla.project+json",
+    "type": "application/vnd.bilrost.project+json",
     "properties": {
         "ignore": [
             ".bilrost/workspace",

@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 
 const workspace_factory = require('../../../../assetmanager/workspace_factory');
 const ssh_url = "git@github.com:StarbreezeStudios/cloud-test-project-2.git";
-const branch = "good_repo_v4";
+const branch = "good_repo_v6";
 const fixtures_path = path.join(process.cwd().replace(/\\/g,'/'), 'tmp', 'fixtures', 'workspace_factory');
 
 const project = {

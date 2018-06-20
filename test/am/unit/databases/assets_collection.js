@@ -10,7 +10,7 @@ describe('Database object', function () {
     const level_1_1_0 = {
         "meta":{
             "ref": "/assets/test_1_1_0.level",
-            "type": "application/vnd.valhalla.level+json",
+            "type": "application/vnd.bilrost.level+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "author": "",
@@ -28,7 +28,7 @@ describe('Database object', function () {
     const prefab_1_1_0 = {
         "meta":{
             "ref": "/assets/prefab/test_1_1_0.prefab",
-            "type": "application/vnd.valhalla.prefab+json",
+            "type": "application/vnd.bilrost.prefab+json",
             "created": "2016-03-16T14:41:10.384Z",
             "modified": "2016-03-18T10:54:05.870Z",
             "author": "",
@@ -114,7 +114,7 @@ describe('Database object', function () {
                 })
                 .catch(done);
         });
-        
+
         it('#remove', function (done) {
             collection
                 .remove("/assets/test_1_1_0.level")
@@ -190,7 +190,7 @@ describe('Database object', function () {
                         search_results.totalItems.should.equal(2);
                         search_results.items.length.should.equal(1);
                         return collection
-                             
+
                             .search({}, { maxResults: 1, start: 1 })
                             .then((search_results) => {
                                 search_results.totalItems.should.equal(2);
