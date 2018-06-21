@@ -140,7 +140,7 @@ var local_FS_adapter = function (base_path) {
     }
 
     function remove(path) {
-        return stat(absolute_path(path)).then(function () {
+        return stat(path).then(function () {
             return promisify(fs.remove)(absolute_path(path));
         });
     }

@@ -127,7 +127,7 @@ const Workspace = function Workspace (file_uri, context, options) {
             host_vcs: 'git',
             cwd: this.adapter.path
         });
-        this.branch = branch_model(git_repo_manager, this);
+        this.branch = branch_model(git_repo_manager, this.reset.bind(this));
     };
 
     const read_workspace_properties = () => {
@@ -204,7 +204,11 @@ const Workspace = function Workspace (file_uri, context, options) {
             .then(assets_path => Promise.all(assets_path.map(asset_path => this.adapter.readJson(asset_path))))
             .then(assets => this.database.add_batch(assets));
     };
-
+    this.reset = () => this.adapter.getFilesRecursively('', ['.git', '.bilrost', '.gitignore'])
+        .then(files => Promise.all(files.map(this.adapter.remove)))
+        .then(this.remove_all_subscriptions)
+        .then(this.empty_stage)
+        .catch(transform_error);
     this.get_adapter = () => this.adapter;
     this.update_and_retrieve_status = () => this.status_manager.update_and_retrieve_status();
     this.get_general_status = () => this.status_manager.get_general_status();
@@ -331,13 +335,11 @@ const Workspace = function Workspace (file_uri, context, options) {
     };
     this.get_stage = () => this.stage_manager.get_stage();
     this.get_staged_files = () => this.stage_manager.get_staged_files();
-    this.add_asset_to_stage = asset_ref => {
-        return this.stage_manager.add_asset(asset_ref)
-            .then(() => {
-                this.update_stage();
-                return this.save();
-            });
-    };
+    this.add_asset_to_stage = asset_ref => this.stage_manager.add_asset(asset_ref)
+        .then(() => {
+            this.update_stage();
+            return this.save();
+        });
     this.remove_asset_from_stage = asset_ref => {
         this.stage_manager.remove_asset(asset_ref);
         this.update_stage();
