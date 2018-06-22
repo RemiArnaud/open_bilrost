@@ -156,7 +156,7 @@ describe('Run Workspace related functional tests for the API', function () {
     });
 
     it('Fail to change to an unknown branch', function (done) {
-        this.timeout(4000);
+        this.timeout(10000);
         test_util.client
             .post('/assetmanager/workspaces/' + name + '/branch/uknown/change')
             .send()

@@ -5,12 +5,12 @@ const _error_outputs = require('../lib/errors')("Commit manager");
 const status_config = require('./status.config.json');
 
 const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => {
-    
+
     const get_commitable_files = () => {
         let add_paths = [];
         let mod_paths = [];
         let del_paths = [];
-                
+
         const add_path_to_result = status => {
             if(status.status === status_config.sync.NEW || status.status === status_config.sync.ADDED) {
                 add_paths.push(status.path);
@@ -35,7 +35,7 @@ const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => 
                                 if (error.statusCode === 404) {
                                     return asset_reader(ref, { rev: 'HEAD' })
                                         .then(content => ({
-                                            output: content 
+                                            output: content
                                         }));
                                 } else {
                                     throw error;
@@ -72,22 +72,23 @@ const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => 
                 del_paths: utilities.unique(del_paths)
             }));
     };
-    
+
     const commit_files = (message, commit_files) => {
-        const lazy_get_commitable_files = () => new Promise(resolve => {
+        const lazy_get_commitable_files = () => new Promise((resolve, reject) => {
             if (commit_files) {
                 resolve(commit_files);
             } else {
                 get_commitable_files()
                     .then(commitable_files => {
                         resolve(commitable_files);
-                    });
+                    })
+                    .catch(reject);
             }
         });
         return lazy_get_commitable_files()
             .then(commitable_files => repo_manager.push_files(commitable_files.mod_paths, commitable_files.add_paths, commitable_files.del_paths, message, workspace.get_branch()));
     };
-    
+
     const get_commit_log = (ref, start_at_revision, maxResults) => {
         var file_path = workspace.utilities.ref_to_relative_path(ref);
         if (ref && !file_path) {
