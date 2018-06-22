@@ -218,6 +218,13 @@ module.exports = function (server, context) {
             });
     });
 
+    server.post('/assetmanager/workspaces/favorites/reset', function (req, res, next) {
+        const handler = new Handler(req, res, next);
+        favorite.flush()
+            .then(() => handler.sendJSON('Ok', 200))
+            .catch(handler.handleError);
+    });
+
     server.del(favorites_regexp, function (req, res, next) {
         const workspace_identifier = decodeURIComponent(req.params[0]);
         const handler = new Handler(req, res, next);
