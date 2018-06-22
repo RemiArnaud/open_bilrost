@@ -7,8 +7,8 @@ const transform_error = err => {
     throw this;
 };
 
-module.exports = git_repo_manager => {
-    
+module.exports = (git_repo_manager, reset_workspace) => {
+
     const get_name = () => git_repo_manager.get_current_branch()
         .catch(transform_error);
 
@@ -16,6 +16,7 @@ module.exports = git_repo_manager => {
         .catch(transform_error);
 
     const change = branch => git_repo_manager.change_branch(branch)
+        .then(reset_workspace)
         .catch(transform_error);
 
     const create = branch => git_repo_manager.create_branch(branch)

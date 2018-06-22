@@ -110,16 +110,24 @@ const Workspace = function Workspace (file_uri, context, options) {
 
     };
 
-    const instantiate_branch_and_get_current_branch = () => {
+    const get_current_branch = () => {
         const git_repo_manager = repo_manager.create({
             host_vcs: 'git',
             cwd: this.adapter.path
         });
-        this.branch = branch_model(git_repo_manager);
-        return this.branch.get_name()
+        const branch_manager = branch_model(git_repo_manager);
+        return branch_manager.get_name()
             .then(branch => {
                 this.branch_name = branch;
             });
+    };
+
+    const instantiate_branch_manager = () => {
+        const git_repo_manager = repo_manager.create({
+            host_vcs: 'git',
+            cwd: this.adapter.path
+        });
+        this.branch = branch_model(git_repo_manager, this.reset.bind(this));
     };
 
     const read_workspace_properties = () => {
@@ -196,7 +204,11 @@ const Workspace = function Workspace (file_uri, context, options) {
             .then(assets_path => Promise.all(assets_path.map(asset_path => this.adapter.readJson(asset_path))))
             .then(assets => this.database.add_batch(assets));
     };
-
+    this.reset = () => this.adapter.getFilesRecursively('', ['.git', '.bilrost', '.gitignore'])
+        .then(files => Promise.all(files.map(this.adapter.remove)))
+        .then(this.remove_all_subscriptions)
+        .then(this.empty_stage)
+        .catch(transform_error);
     this.get_adapter = () => this.adapter;
     this.update_and_retrieve_status = () => this.status_manager.update_and_retrieve_status();
     this.get_general_status = () => this.status_manager.get_general_status();
@@ -313,18 +325,21 @@ const Workspace = function Workspace (file_uri, context, options) {
         this.update_subscriptions();
         return this.save();
     };
+    this.remove_all_subscriptions = () => {
+        this.subscription_manager.remove_all_subscriptions();
+        this.update_subscriptions();
+        return this.save();
+    };
     this.update_subscriptions = () => {
         this.properties.subscriptions = this.subscription_manager.get_subscriptions();
     };
     this.get_stage = () => this.stage_manager.get_stage();
     this.get_staged_files = () => this.stage_manager.get_staged_files();
-    this.add_asset_to_stage = asset_ref => {
-        return this.stage_manager.add_asset(asset_ref)
-            .then(() => {
-                this.update_stage();
-                return this.save();
-            });
-    };
+    this.add_asset_to_stage = asset_ref => this.stage_manager.add_asset(asset_ref)
+        .then(() => {
+            this.update_stage();
+            return this.save();
+        });
     this.remove_asset_from_stage = asset_ref => {
         this.stage_manager.remove_asset(asset_ref);
         this.update_stage();
@@ -332,6 +347,11 @@ const Workspace = function Workspace (file_uri, context, options) {
     };
     this.update_stage = () => {
         this.properties.stage = this.stage_manager.get_stage();
+    };
+    this.empty_stage = () => {
+        this.stage_manager.empty_stage();
+        this.update_stage();
+        return this.save();
     };
     this.commit_files = message => this.with_lock(() => this.resource.commit_manager.get_commitable_files()
         .then(resource_commitable_files => {
@@ -344,9 +364,7 @@ const Workspace = function Workspace (file_uri, context, options) {
                 .then(() => this.asset.commit_manager.commit_files(message))
                 .then(id => {
                     asset_commit_id = id;
-                    this.stage_manager.empty_stage();
-                    this.update_stage();
-                    return this.save();
+                    return this.empty_stage();
                 })
                 .then(() => {
                     const res = {
@@ -389,13 +407,14 @@ const Workspace = function Workspace (file_uri, context, options) {
     };
 
     return create_ifs_adapter()
-        .then(instantiate_branch_and_get_current_branch)
+        .then(get_current_branch)
         .then(read_project_properties)
         .then(read_workspace_properties)
         .then(build_database)
         .then(check_invalid_status)
         .then(instantiate_subscription_manager)
         .then(instantiate_stage_manager)
+        .then(instantiate_branch_manager)
         .then(instantiate_resource)
         .then(instantiate_asset)
         .then(instantiate_status_manager)

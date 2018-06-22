@@ -5,6 +5,7 @@ global.debug = true;
 
 const should = require('should');
 const path = require('path').posix;
+const fs = require('fs-extra');
 const Test_util = require('../../../util/test_util');
 
 var test_util = new Test_util("workspace", "good_repo_v6");
@@ -211,6 +212,25 @@ describe('Run Workspace related functional tests for the API', function () {
                     done();
                 });
         });
+
+        it('Reset a workspace', function (done) {
+            this.timeout(8*this.timeout());
+            fs.writeFileSync(path.join(test_util.get_carol_path(), 'test'), 'Hello world!');
+            test_util.client
+                .post(`/assetmanager/workspaces/${encodeURIComponent(test_util.get_carol_file_uri())}/reset`)
+                .send()
+                .set("Content-Type", "application/json")
+                .set("Accept", 'application/json')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done({ error: err.toString(), status: res.status, body: res.body });
+                    }
+                    should.equal(fs.readdirSync(test_util.get_carol_path()).length, 3);
+                    done();
+                });
+        });
+
 
         it('Forget the copied Workspace from favorite list', function(done){
             test_util.client

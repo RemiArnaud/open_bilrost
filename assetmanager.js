@@ -9,6 +9,7 @@ const utilities = require('./assetmanager/utilities');
 const _workspace_metadata_presenter = require('./assetmanager/workspace_presenter').Workspace_metadata_presenter;
 
 const workspaces_regexp = /^\/assetmanager\/workspaces\/([^\/]*)$/;
+const workspace_reset_regexp = /^\/assetmanager\/workspaces\/([^\/]*)\/reset$/;
 const favorites_regexp = /^\/assetmanager\/workspaces\/([^\/]*)\/favorites$/;
 const assets_regexp = /^\/assetmanager\/workspaces\/([^\/]*)(\/assets\/.*)/;
 const assets_rename_regexp = /^\/assetmanager\/workspaces\/([^\/]*)\/rename(\/assets\/.*)/;
@@ -194,6 +195,15 @@ module.exports = function (server, context) {
                     handler.handleError(errors.INTERNALERROR(workspace));
                 }
             });
+    });
+
+    server.post(workspace_reset_regexp, function (req, res, next) {
+        const workspace_identifier = decodeURIComponent(req.params[0]);
+        const handler = new Handler(req, res, next);
+        _workspace.find(workspace_identifier)
+            .then(workspace => workspace.reset())
+            .then(() => handler.sendJSON('Ok', 200))
+            .catch(workspace => handler.handleError(workspace.error || workspace));
     });
 
     server.post('/assetmanager/workspaces/favorites', function (req, res, next) {
