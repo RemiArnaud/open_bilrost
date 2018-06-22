@@ -21,7 +21,6 @@ describe('Favorite object', function () {
     after("Flush favorite list", favorite.flush);
 
     describe('Adding', function(){
-
         it('Add example1 workspace to favorite list', function(){
             return favorite.add(example_1).then(() => {
                 return favorite.list().length.should.equal(1);
@@ -46,7 +45,6 @@ describe('Favorite object', function () {
                 return favorite.list().length.should.equal(2);
             });
         });
-
     });
 
     describe("Removing", function(){
@@ -83,7 +81,6 @@ describe('Favorite object', function () {
         it('finds by file_uri', () => {
             favorite.find_by_file_uri(example_1.file_uri).should.equal(example_1);
         });
-
     });
 
 });
