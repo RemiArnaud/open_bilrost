@@ -25,6 +25,7 @@ const Repo_manager_s3 = input => {
     const subscription_manager = input.subscription_manager;
     const amazon = amazon_s3(context.amazon_client, context.cache);
     return {
+        type: 's3',
         // this is will be deprecated
         get_full_status: () => Promise.resolve({
             paths: [],

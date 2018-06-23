@@ -64,7 +64,6 @@ module.exports = (ifs_adapter, git_repo_manager, utilities, list_parent_assets) 
         const mapped_resource_files = [...resource_commitable_files.mod_paths, ...resource_commitable_files.add_paths];
         const identity_files_to_add = mapped_resource_files;
         const identity_files_to_remove = resource_commitable_files.del_paths;
-
         const build_identity_files = () => {
             const build_identities = Promise.all(mapped_resource_files.map(build_resource_identity));
             const remove_identities = Promise.all(identity_files_to_remove.map(remove_resource_identity));
