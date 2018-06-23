@@ -9,7 +9,7 @@ const workspace_utilities = require('../../../assetmanager/workspace_utilities')
 const s = require('stream');
 
 describe("Identity", function () {
-    
+
     it('Get resource hash', function (done) {
         const hash_example = 'c0535e4be2b79ffd93291305436bf889314e4a3faec05ecffcbb7df31ad9e51a';
         const ref = "/resources/a/b.json";
@@ -93,16 +93,59 @@ describe("Identity", function () {
                 });
             }
         };
-        const id = identity(ifs_adapter, git_repo_manager, workspace_utilities);
+        const list_parent_assets = ref => Promise.resolve([
+            '/assets/foo'
+        ]);
+        const id = identity(ifs_adapter, git_repo_manager, workspace_utilities, list_parent_assets);
         const commitable_files = {
             add_paths: [add_path],
             mod_paths: [modified_path],
-            del_paths: [removed_path],
+            del_paths: [removed_path]
 
         };
         id.build_and_stage_identity_files(commitable_files)
             .then(() => {
                 should.equal(success_count, 6);
+                done();
+            }).catch(done);
+    });
+
+    it('build and stage identity files with a resource removal which is referenced by two assets', function (done) {
+        let success_count = 0;
+        const removed_path = "/removed/r.json";
+        const ifs_adapter = {
+            removeFile: path => {
+                if (path === '.bilrost/resources' + removed_path) {
+                    success_count ++;
+                    return Promise.resolve();
+                }
+            }
+        };
+        const git_repo_manager = {
+            add_files: () => {},
+            remove_files: file_paths => {
+                file_paths.forEach(path => {
+                    if (path === '.bilrost/resources' + removed_path) {
+                        success_count ++;
+                        return Promise.resolve();
+                    }
+                });
+            }
+        };
+        const list_parent_assets = ref => Promise.resolve([
+            '/assets/foo',
+            '/assets/bar'
+        ]);
+        const id = identity(ifs_adapter, git_repo_manager, workspace_utilities, list_parent_assets);
+        const commitable_files = {
+            add_paths: [],
+            mod_paths: [],
+            del_paths: [removed_path]
+
+        };
+        id.build_and_stage_identity_files(commitable_files)
+            .then(() => {
+                should.equal(success_count, 1);
                 done();
             }).catch(done);
     });
@@ -140,7 +183,7 @@ describe("Identity", function () {
             should.equal(modified, false);
             return id.compare(removed_ref);
         }).then(res => {
-            done('This comparaison shouldnt be valid!');            
+            done('This comparaison shouldnt be valid!');
         })
         .catch(err => {
             err.code.should.equal(2);

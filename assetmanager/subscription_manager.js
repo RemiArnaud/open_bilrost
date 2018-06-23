@@ -61,7 +61,6 @@ class Subscription_manager {
     }
 
     add_subscription (type, descriptor) {
-
         return this.is_subscribed(descriptor)
             .then(is_subbed => {
                 if (!is_subbed) {
@@ -80,7 +79,6 @@ class Subscription_manager {
                             .find(sub => sub.type === type && sub.descriptor === descriptor);
                     }
             });
-
     }
 
     remove_subscription (subscription_id) {

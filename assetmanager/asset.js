@@ -279,58 +279,58 @@ asset_model = workspace => {
     };
 
     const create = (ref, asset) => asset_model.find_asset_by_ref(workspace, ref)
-            .then(() => {
-                throw _error_outputs.ALREADYEXIST(ref);
-            },
-            () => {
-                asset = Object.assign({
-                    dependencies: [],
-                    tags: [],
-                    main: "",
-                    comment: ""
-                }, asset);
-                asset.meta = {
-                    ref: ref,
-                    created: new Date().toISOString(),
-                    modified: new Date().toISOString(),
-                    author: 'unknown',
-                    version: '1.1.0'
-                };
+        .then(() => {
+            throw _error_outputs.ALREADYEXIST(ref);
+        },
+        () => {
+            asset = Object.assign({
+                dependencies: [],
+                tags: [],
+                main: "",
+                comment: ""
+            }, asset);
+            asset.meta = {
+                ref: ref,
+                created: new Date().toISOString(),
+                modified: new Date().toISOString(),
+                author: 'unknown',
+                version: '1.1.0'
+            };
 
-                let invalid_reference = validator.is_invalid_reference(ref);
-                if (invalid_reference) {
-                    throw _error_outputs.CORRUPT(invalid_reference);
-                }
+            let invalid_reference = validator.is_invalid_reference(ref);
+            if (invalid_reference) {
+                throw _error_outputs.CORRUPT(invalid_reference);
+            }
 
-                let valid_asset = validator.is_valid_schema(asset);
-                if (valid_asset.errors.length) {
-                    throw _error_outputs.CORRUPT(valid_asset.errors);
-                }
+            let valid_asset = validator.is_valid_schema(asset);
+            if (valid_asset.errors.length) {
+                throw _error_outputs.CORRUPT(valid_asset.errors);
+            }
 
-                return validator.is_invalid_paths_in_data(asset)
-                    .then(() => {
-                        if (asset.dependencies && asset.dependencies.length) {
-                            asset.dependencies.sort();
-                        }
-                        if (asset.tags && asset.tags.length) {
-                            asset.tags.sort();
-                        }
-                        return asset.main ? workspace.database.search({ main: asset.main }) : Promise.resolve({ items: [] });
-                    })
-                    .catch(err => { throw _error_outputs.CORRUPT(err); })
-                    .then(search_results => {
-                        if (search_results.items.length !== 0) {
-                            throw _error_outputs.CORRUPT(asset.main +" main already defined by another asset");
-                        }
-                    })
-                    .then(() => Promise.all([
-                        workspace.adapter.outputFormattedJson(get_relative_path(ref), asset),
-                        workspace.database.add(asset)
-                    ]))
-                    .then(() => run_full_validation_and_reduce_errors(validator, ref))
-                    .then(() => asset.meta);
-            })
-            .catch(error => filter_error(error));
+            return validator.is_invalid_paths_in_data(asset)
+                .then(() => {
+                    if (asset.dependencies && asset.dependencies.length) {
+                        asset.dependencies.sort();
+                    }
+                    if (asset.tags && asset.tags.length) {
+                        asset.tags.sort();
+                    }
+                    return asset.main ? workspace.database.search({ main: asset.main }) : Promise.resolve({ items: [] });
+                })
+                .catch(err => { throw _error_outputs.CORRUPT(err); })
+                .then(search_results => {
+                    if (search_results.items.length !== 0) {
+                        throw _error_outputs.CORRUPT(asset.main +" main already defined by another asset");
+                    }
+                })
+                .then(() => Promise.all([
+                    workspace.adapter.outputFormattedJson(get_relative_path(ref), asset),
+                    workspace.database.add(asset)
+                ]))
+                .then(() => run_full_validation_and_reduce_errors(validator, ref))
+                .then(() => asset.meta);
+        })
+        .catch(error => filter_error(error));
 
     const rename = (ref, new_ref, modified) => asset_model.find_asset_by_ref(workspace, ref)
         .then(asset => asset.output)
@@ -423,7 +423,7 @@ asset_model = workspace => {
         })
         .then(search_results => {
             if (search_results.items.length !== 0) {
-                search_results = search_results.items.map(asset => asset.meta.ref).toString();
+                search_results = search_results.items.map(asset => asset.meta.ref);
                 throw _error_outputs.ALREADYEXIST(ref + " reference defined by other assets " + search_results);
             }
             return Promise.all([
