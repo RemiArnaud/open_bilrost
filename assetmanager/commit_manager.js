@@ -21,7 +21,7 @@ const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => 
             }
         };
 
-        return repo_manager.get_current_status()
+        return repo_manager.get_status()
             .then(statuses => {
                 return workspace.stage_manager.get_stage().reduce((p, ref, index) => {
                     if (!index) {

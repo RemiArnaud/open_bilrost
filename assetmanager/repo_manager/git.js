@@ -121,7 +121,7 @@ class Repo_manager_git extends Repo_manager {
         switch (status_letter) {
             case 'A':
             case 'C':
-                return status_config.sync.ADDED;
+                return status_config.sync.NEW;
             case 'X':
                 return status_config.sync.NEW;
             case 'R':
@@ -145,7 +145,7 @@ class Repo_manager_git extends Repo_manager {
                 return status_config.sync.NEW;
             case 'A':
             case 'C':
-                return status_config.sync.ADDED;
+                return status_config.sync.NEW;
             case 'M':
                 return status_config.sync.MODIFIED;
             case 'D':
@@ -235,56 +235,7 @@ class Repo_manager_git extends Repo_manager {
         });
     }
 
-    get_full_status (branch_name) {
-        return this.exec_by_line(this.commit_file_status_command(branch_name, 'origin/' + branch_name), this.cwd, line => {
-            let match = line.match(this.commit_statuses_regex);
-            if (!match) {
-                return null;
-            }
-            return {
-                status: this.parse_commit_status(match[1]),
-                all_in_one: match[2],
-                path: match[3]
-            };
-        })
-        .catch(err => {
-            if (err.statusCode === 500 && err.message.includes('unknown revision or path not in the working tree')) {
-                return this.get_current_status();
-            } else {
-                throw err;
-            }
-        })
-        .then(statuses => {
-            let is_modified = false;
-            let is_out_of_date = false;
-
-            let sync_status = {
-                paths: statuses,
-            };
-
-            statuses.forEach(status => {
-                if (status.status === status_config.sync.OUT_OF_DATE) {
-                    is_out_of_date = true;
-                } else if (status.status !== status_config.sync.UP_TO_DATE) {
-                    is_modified = true;
-                }
-            });
-
-            if (is_modified && is_out_of_date) {
-                sync_status.workspace_status = status_config.sync.CONFLICTED;
-            } else if (is_modified) {
-                sync_status.workspace_status = status_config.sync.MODIFIED;
-            } else if (is_out_of_date) {
-                sync_status.workspace_status = status_config.sync.OUT_OF_DATE;
-            } else {
-                sync_status.workspace_status = status_config.sync.UP_TO_DATE;
-            }
-
-            return sync_status;
-        });
-    }
-
-    get_current_status () {
+    get_status () {
         return this.exec_by_line(this.status_command, this.cwd, line => {
             if (line) {
                 let match = line.match(this.status_regex);

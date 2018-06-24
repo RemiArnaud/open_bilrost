@@ -23,7 +23,7 @@ describe('Github repo manager', function () {
             utilities: workspace_utilities(p => _path.join('.bilrost', p ? p : '/'))
         });
         repo_manager
-            .get_current_status()
+            .get_status()
             .then(res => {
                 should.deepEqual(res, [{
                     status: 'MODIFIED',

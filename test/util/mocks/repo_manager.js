@@ -48,7 +48,7 @@ class Repo_manager {
         return Promise.resolve();
     }
 
-    get_current_status () {
+    get_status () {
         return Promise.resolve(this.current_status_callback());
     }
 

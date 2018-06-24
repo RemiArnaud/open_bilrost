@@ -218,7 +218,7 @@ describe('S3 repo manager', function () {
             identity,
             utilities: workspace_utilities
         });
-        repo_manager.get_current_status()
+        repo_manager.get_status()
             .then(statuses => {
                 should.deepEqual(statuses, [
                     {
