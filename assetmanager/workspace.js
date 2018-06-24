@@ -234,10 +234,12 @@ const Workspace = function Workspace (file_uri, context, options) {
 
                 return Promise.all(statuses
                     .map(({ status, ref }) => {
+                        let integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
+                        integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
                         let ref_status = {
                             ref,
                             sync_status: status,
-                            integrity_status: status_config.integrity.VALID
+                            integrity_status
                         };
                         if (this.utilities.is_asset_ref(ref) && (status === 'MODIFIED' || status === 'NEW')) {
                             return this.asset.validator.run_full_validation(ref)

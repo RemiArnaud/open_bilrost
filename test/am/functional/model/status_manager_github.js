@@ -467,13 +467,13 @@ describe("Run set of test for github status manager", function () {
         it('Missing General Status', function(done){
             Promise.all([
                 collection.update("workspace_validator", { state: 'VALID' }),
-                collection.update("assets_validator", { state: 'MISSING' })
+                collection.update("assets_validator", { state: 'DELETED' })
             ]).then(() => {
                 status_manager_instance
                     .get_general_status()
                     .then(general_status => {
                         should.exist(general_status);
-                        should.equal(general_status.get_state(), "MISSING");
+                        should.equal(general_status.get_state(), "DELETED");
                         done();
                     }).catch(function (err) {
                         done(err);
@@ -484,7 +484,7 @@ describe("Run set of test for github status manager", function () {
         it('Invalid General Status', function(done){
             Promise.all([
                 collection.update("workspace_validator", { state: 'INVALID' }),
-                collection.update("assets_validator", { state: 'MISSING' })
+                collection.update("assets_validator", { state: 'DELETED' })
             ]).then(() => {
                 status_manager_instance
                     .get_general_status()

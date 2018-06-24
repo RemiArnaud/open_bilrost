@@ -23,7 +23,7 @@ class Status_am extends Status {
                     this.status = status;
                     return true;
                 } else {
-                    this.set_state(status_config.integrity.MISSING);
+                    this.set_state(status_config.integrity.DELETED);
                     return this.save_status();
                 }
             });

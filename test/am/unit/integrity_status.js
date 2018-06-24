@@ -212,7 +212,7 @@ describe('Integrity status', function () {
                     should.exist(status);
                     should.deepEqual(status, {
                         ref: "assets_validator",
-                        state: "MISSING",
+                        state: "DELETED",
                         description: "The validation hasn't been ran yet!",
                         info: {}
                     });
@@ -230,13 +230,13 @@ describe('Integrity status', function () {
                 .then(statuses => {
                     should.deepEqual(statuses, [{
                         ref: "assets_validator",
-                        state: "MISSING",
+                        state: "DELETED",
                         description: "The validation hasn't been ran yet!",
                         info: {}
                     },
                     {
                         ref: "workspace_validator",
-                        state: "MISSING",
+                        state: "DELETED",
                         description: "The validation hasn't been ran yet!",
                         info: {}
                     }]);
@@ -263,7 +263,7 @@ describe('Integrity status', function () {
                     },
                     {
                         ref: "workspace_validator",
-                        state: "MISSING",
+                        state: "DELETED",
                         description: "The validation hasn't been ran yet!"
                     }]);
                     done();
