@@ -86,6 +86,7 @@ describe('Commit Manager', function() {
                         stage_manager = new Stage_manager(workspace);
                         repo_manager = workspace.resource.repo_manager;
                         mock_repo_manager_instance = new Mock_repo_manager(repo_manager.cwd);
+                        mock_repo_manager_instance.type = 'git';
                         commit_manager = commitmanager(workspace, mock_repo_manager_instance, workspace.asset.find_asset_by_ref, workspace.asset.repo_manager.read);
 
                         workspace.subscription_manager = subscription_manager;
