@@ -8,7 +8,7 @@ class Repo_manager {
         this.cwd = cwd;
 
         let current_status_del_paths = [
-            { status: status_config.sync.MISSING, ref: '/assets/test_1_1_0.level', path: '/.bilrost/assets/test_1_1_0.level' }
+            { status: status_config.sync.DELETED, ref: '/assets/test_1_1_0.level', path: '/.bilrost/assets/test_1_1_0.level' }
         ];
 
         this.current_status_callback = sinon.stub();
@@ -48,7 +48,7 @@ class Repo_manager {
         return Promise.resolve();
     }
 
-    get_current_status () {
+    get_status () {
         return Promise.resolve(this.current_status_callback());
     }
 

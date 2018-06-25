@@ -23,7 +23,20 @@ function Resource (workspace) {
         cwd: this.adapter.path,
         utilities: workspace.utilities
     });
-    const identity = identity_manager(this.adapter, asset_repo_manager, workspace.utilities);
+    const list_assets = ref => workspace.database.search({
+       '$or': [
+            {
+                dependencies: {
+                    '$contains': ref
+                }
+            },
+            {
+                main : ref
+            }
+        ]
+    })
+        .then(search_results => search_results.items.map(asset => asset.meta.ref));
+    const identity = identity_manager(this.adapter, asset_repo_manager, workspace.utilities, list_assets);
     const resource_repo_manager = repo_manager.create({
         host_vcs: workspace.project.get_host_vcs(),
         cwd: this.adapter.path,
@@ -38,6 +51,8 @@ function Resource (workspace) {
     this.identity = identity;
     this.repo_manager = resource_repo_manager;
     this.commit_manager = commit_manager(workspace, resource_repo_manager, asset_finder, asset_reader);
+
+    this.list_parent_assets = list_assets;
 
     this.get = (ref, options) => {
         let _this = this;

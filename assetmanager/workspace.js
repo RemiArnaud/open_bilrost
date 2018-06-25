@@ -213,96 +213,103 @@ const Workspace = function Workspace (file_uri, context, options) {
     this.update_and_retrieve_status = () => this.status_manager.update_and_retrieve_status();
     this.get_general_status = () => this.status_manager.get_general_status();
     this.check_overall_validation = () => this.status_manager.check_overall_validation();
-    this.get_full_status = () => {
+    this.get_status = () => {
         let workspace_status = {
             workspace_name: this.properties.name,
             workspace_guid: this.properties.guid,
             host_vcs: this.project.get_host_vcs(),
-            refs: [],
+            statuses: [],
+            integrity_status: undefined,
+            sync_status: undefined
         };
         return Promise.all([
-            this.resource.repo_manager.get_full_status(),
-            this.asset.repo_manager.get_full_status(this.get_branch()),
+            this.resource.repo_manager.get_status(),
+            this.asset.repo_manager.get_status()
         ])
             .then(sync_statuses => {
+                const format = ({ status, ref }) => ({ status, ref });
                 const resource_sync_status = sync_statuses[0];
                 const asset_sync_status = sync_statuses[1];
-                asset_sync_status.paths = asset_sync_status.paths.concat(resource_sync_status.paths);
-                workspace_status.sync_status = asset_sync_status.workspace_status;
-                workspace_status.integrity_status = asset_sync_status.workspace_status;
+                const statuses = [...resource_sync_status.filter(format), ...asset_sync_status.filter(format)];
 
-                return Promise.all(asset_sync_status.paths.map(path_status => {
-                    let ref = this.utilities.relative_path_to_ref(path_status.path);
-                    let ref_status = {
-                        ref: ref,
-                        sync_status: path_status.status
-                    };
+                return Promise.all(statuses
+                    .map(({ status, ref }) => {
+                        let integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
+                        integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
+                        let ref_status = {
+                            ref,
+                            sync_status: status,
+                            integrity_status
+                        };
+                        if (this.utilities.is_asset_ref(ref) && (status === 'MODIFIED' || status === 'NEW')) {
+                            return this.asset.validator.run_full_validation(ref)
+                                .then(result => {
+                                    ref_status.integrity_status = result[0].state;
+                                    return ref_status;
+                                })
+                                .catch(error => {
+                                    throw _error_outputs.INTERNALERROR(error);
+                                });
+                        } else {
+                            return ref_status;
+                        }
+                    })
+                );
+            })
+            .then(statuses => {
+                workspace_status.statuses = statuses;
+                let is_modified = false;
+                let is_out_of_date = false;
 
-                    if (ref) {
-                        workspace_status.refs.push(ref_status);
+                statuses.forEach(({ status }) => {
+                    if (status === status_config.sync.OUT_OF_DATE) {
+                        is_out_of_date = true;
+                    } else if (status !== status_config.sync.UP_TO_DATE) {
+                        is_modified = true;
                     }
+                });
 
-                    if (this.utilities.is_asset_ref(ref)) {
-                        return this.asset.validator.run_full_validation(ref)
-                            .then(result => {
-                                ref_status.integrity_status = result[0].state;
-                                return ref_status;
-                            })
-                            .catch(error => {
-                                throw _error_outputs.INTERNALERROR(error);
-                            });
-                    }
-                }));
+                if (is_modified && is_out_of_date) {
+                    workspace_status.sync_status = status_config.sync.CONFLICTED;
+                } else if (is_modified) {
+                    workspace_status.sync_status = status_config.sync.MODIFIED;
+                } else if (is_out_of_date) {
+                    workspace_status.sync_status = status_config.sync.OUT_OF_DATE;
+                } else {
+                    workspace_status.sync_status = status_config.sync.UP_TO_DATE;
+                }
             })
             .then(() => this.status_manager.get_general_status())
             .then(general_status => {
                 workspace_status.integrity_status = general_status.status.state;
-            })
-            .then(() => workspace_status);
+                return workspace_status;
+            });
     };
     this.get_ref_status = ref => {
-        let path = this.utilities.ref_to_relative_path(ref);
-        let ref_status = {
-            ref: ref
+        const ref_status = {
+            sync_status: status_config.sync.UP_TO_DATE,
+            integrity_status: status_config.integrity.VALID
         };
-
-        if (!path) {
-            throw _error_outputs.INTERNALERROR('Asset/Resource ref is not valid.');
-        }
-
-        return this.subscription_manager.is_subscribed(ref)
-            .then(is_subs => {
-                if (is_subs) {
-                    const is_asset = this.utilities.is_asset_ref(ref);
-                    const repo_manager = is_asset ? this.asset.repo_manager : this.resource.repo_manager;
-                    return repo_manager.get_full_status(this.get_branch())
-                        .then(sync_status => {
-                            sync_status.paths.forEach(item => {
-                                if (item.path === path) {
-                                    ref_status.sync_status = item.status;
-                                }
-                            });
-
-                            if (!ref_status.sync_status) {
-                                ref_status.sync_status = status_config.sync.UP_TO_DATE;
-                            }
+        const is_asset = this.utilities.is_asset_ref(ref);
+        const repo_manager = is_asset ? this.asset.repo_manager : this.resource.repo_manager;
+        return repo_manager.get_status()
+            .then(statuses => statuses
+                .filter(status => status.ref === ref)
+                .map(({ status }) => {
+                    ref_status.sync_status = status;
+                }))
+            .then(() => {
+                if (this.utilities.is_asset_ref(ref) && (ref_status.sync_status === 'MODIFIED' || ref_status.sync_status === 'NEW')) {
+                    return this.asset.validator.run_full_validation(ref)
+                        .then(result => {
+                            ref_status.integrity_status = result[0].state;
+                            return ref_status;
                         })
-                        .then(() => {
-                            if (this.utilities.is_asset_ref(ref)) {
-                                return this.asset.validator.run_full_validation(ref)
-                                    .then(result => {
-                                        ref_status.integrity_status = result[0].state;
-                                        return ref_status;
-                                    })
-                                    .catch(error => {
-                                        throw _error_outputs.INTERNALERROR(error);
-                                    });
-                            } else {
-                                return ref_status;
-                            }
+                        .catch(error => {
+                            throw _error_outputs.INTERNALERROR(error);
                         });
                 } else {
-                    throw _error_outputs.INTERNALERROR('Asset/Resource ref is not on any subscription.');
+                    return ref_status;
                 }
             });
     };

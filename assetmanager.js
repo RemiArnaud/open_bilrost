@@ -280,7 +280,7 @@ module.exports = function (server, context) {
 
         _workspace.find(workspace_identifier)
             .then(workspace => workspace.check_overall_validation()
-                .then(() => workspace.get_full_status())
+                .then(() => workspace.get_status())
             )
             .then(full_status => handler.sendJSON(full_status, 200))
             .catch(full_status => handler.handleError(full_status));

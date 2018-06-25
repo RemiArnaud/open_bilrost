@@ -215,7 +215,7 @@ describe('Run Content Browser related test for content browser api', function ()
                     },
                     {
                         context: "workspace_validator",
-                        state: "MISSING",
+                        state: "DELETED",
                         description: "The validation is missing!",
                         info: {}
                     }

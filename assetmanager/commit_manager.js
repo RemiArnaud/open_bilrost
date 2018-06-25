@@ -12,16 +12,16 @@ const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => 
         let del_paths = [];
 
         const add_path_to_result = status => {
-            if(status.status === status_config.sync.NEW || status.status === status_config.sync.ADDED) {
+            if(status.status === status_config.sync.NEW) {
                 add_paths.push(status.path);
-            } else if (status.status === status_config.sync.MISSING || status.status === status_config.sync.DELETED) {
+            } else if (status.status === status_config.sync.DELETED) {
                 del_paths.push(status.path);
             } else {
                 mod_paths.push(status.path);
             }
         };
 
-        return repo_manager.get_current_status()
+        return repo_manager.get_status()
             .then(statuses => {
                 return workspace.stage_manager.get_stage().reduce((p, ref, index) => {
                     if (!index) {
@@ -43,8 +43,8 @@ const commit_manager = (workspace, repo_manager, asset_finder, asset_reader) => 
                             })
                             .then(asset => {
                                 statuses.forEach(status => {
-                                    if (status.status === status_config.sync.MISSING || status.status === status_config.sync.DELETED) {
-                                        if (status.ref === ref) {
+                                    if (status.status === status_config.sync.DELETED) {
+                                        if (repo_manager.type === 'git' ? status.ref === ref : workspace.utilities.is_dependency(status.ref, asset.output.main, asset.output.dependencies)) {
                                             del_paths.push(status.path);
                                         }
                                     } else if (status.status === status_config.sync.NEW || status.status === status_config.sync.MODIFIED || status.status === status_config.sync.RENAMED) {

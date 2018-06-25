@@ -25,13 +25,9 @@ const Repo_manager_s3 = input => {
     const subscription_manager = input.subscription_manager;
     const amazon = amazon_s3(context.amazon_client, context.cache);
     return {
-        // this is will be deprecated
-        get_full_status: () => Promise.resolve({
-            paths: [],
-            workspace_status: 'UP_TO_DATE'
-        }),
+        type: 's3',
         get_commit_log: () => Promise.resolve([]),
-        get_current_status: () => Promise.all(subscription_manager.get_subscription_objects().map(sub => sub.list_dependencies()))
+        get_status: () => Promise.all(subscription_manager.get_subscription_objects().map(sub => sub.list_dependencies()))
             .then(utilities.flatten)
             .then(utilities.unique)
             .then(subs => {
