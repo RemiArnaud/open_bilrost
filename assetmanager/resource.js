@@ -52,8 +52,6 @@ function Resource (workspace) {
     this.repo_manager = resource_repo_manager;
     this.commit_manager = commit_manager(workspace, resource_repo_manager, asset_finder, asset_reader);
 
-    this.list_parent_assets = list_assets;
-
     this.get = (ref, options) => {
         let _this = this;
         if (!options) {
