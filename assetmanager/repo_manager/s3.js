@@ -5,6 +5,7 @@ const path = require('path');
 const utilities = require('../utilities');
 const errors = require('../../lib/errors')('S3 repo manager');
 const amazon_s3 = require('../../lib/amazon-s3');
+const status_config = require('./../status.config.json');
 
 // this is will be deprecated
 
@@ -60,12 +61,22 @@ const Repo_manager_s3 = input => {
                         }
                     }), Promise.resolve()).then(() => statuses);
             }),
-        pull_file: file_path => {
+        pull_file: (file_path, status) => {
             const ref = input.utilities.relative_path_to_ref(file_path, cwd);
             const full_path = path.join(cwd, file_path);
+            status.set_state(status_config.tokens.progress.IN_PROGRESS);
+            status.set_info('message', `Downloading ${ref}...`);
             return identity.get_resource_hash(ref)
-                .then(key => amazon.download(key, full_path))
-                .catch(filter_error);
+                .then(key => amazon.download(key, full_path, status))
+                .then(() => {
+                    status.set_state(status_config.tokens.progress.IDLE);
+                    status.remove_info('message');
+                })
+                .catch(err => {
+                    status.set_state(status_config.tokens.progress.IDLE);
+                    status.remove_info('message');
+                    return filter_error(err);
+                });
         },
         push_files: (mod_paths, add_paths, del_paths) => {
             const push_file = relative_path => {

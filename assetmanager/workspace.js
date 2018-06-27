@@ -84,7 +84,7 @@ const Workspace = function Workspace (file_uri, context, options) {
     if (workspace) {
         if (workspace.status) {
             workspace.status.forEach(status => {
-                if (status.state !== status_config.integrity.VALID) {
+                if (status.state !== status_config.tokens.integrity.VALID) {
                     result.reason = status.info;
                     result.is_valid = false;
                 }
@@ -234,8 +234,8 @@ const Workspace = function Workspace (file_uri, context, options) {
 
                 return Promise.all(statuses
                     .map(({ status, ref }) => {
-                        let integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
-                        integrity_status = status === status_config.sync.DELETED ? status_config.sync.DELETED : status_config.sync.VALID;
+                        let integrity_status = status === status_config.tokens.sync.DELETED ? status_config.tokens.sync.DELETED : status_config.tokens.sync.VALID;
+                        integrity_status = status === status_config.tokens.sync.DELETED ? status_config.tokens.sync.DELETED : status_config.tokens.sync.VALID;
                         let ref_status = {
                             ref,
                             sync_status: status,
@@ -262,21 +262,21 @@ const Workspace = function Workspace (file_uri, context, options) {
                 let is_out_of_date = false;
 
                 statuses.forEach(({ status }) => {
-                    if (status === status_config.sync.OUT_OF_DATE) {
+                    if (status === status_config.tokens.sync.OUT_OF_DATE) {
                         is_out_of_date = true;
-                    } else if (status !== status_config.sync.UP_TO_DATE) {
+                    } else if (status !== status_config.tokens.sync.UP_TO_DATE) {
                         is_modified = true;
                     }
                 });
 
                 if (is_modified && is_out_of_date) {
-                    workspace_status.sync_status = status_config.sync.CONFLICTED;
+                    workspace_status.sync_status = status_config.tokens.sync.CONFLICTED;
                 } else if (is_modified) {
-                    workspace_status.sync_status = status_config.sync.MODIFIED;
+                    workspace_status.sync_status = status_config.tokens.sync.MODIFIED;
                 } else if (is_out_of_date) {
-                    workspace_status.sync_status = status_config.sync.OUT_OF_DATE;
+                    workspace_status.sync_status = status_config.tokens.sync.OUT_OF_DATE;
                 } else {
-                    workspace_status.sync_status = status_config.sync.UP_TO_DATE;
+                    workspace_status.sync_status = status_config.tokens.sync.UP_TO_DATE;
                 }
             })
             .then(() => this.status_manager.get_general_status())
@@ -287,8 +287,8 @@ const Workspace = function Workspace (file_uri, context, options) {
     };
     this.get_ref_status = ref => {
         const ref_status = {
-            sync_status: status_config.sync.UP_TO_DATE,
-            integrity_status: status_config.integrity.VALID
+            sync_status: status_config.tokens.sync.UP_TO_DATE,
+            integrity_status: status_config.tokens.integrity.VALID
         };
         const is_asset = this.utilities.is_asset_ref(ref);
         const repo_manager = is_asset ? this.asset.repo_manager : this.resource.repo_manager;

@@ -1,31 +1,61 @@
 {
-    "integrity": {
-        "DELETED": "DELETED",
-        "PENDING": "PENDING",
-        "VALID": "VALID",
-        "INVALID": "INVALID"
+    "tokens": {
+        "integrity": {
+            "DELETED": "DELETED",
+            "PENDING": "PENDING",
+            "VALID": "VALID",
+            "INVALID": "INVALID"
+        },
+        "sync": {
+            "UP_TO_DATE": "UP_TO_DATE",
+            "OUT_OF_DATE": "OUT_OF_DATE",
+            "MODIFIED": "MODIFIED",
+            "DELETED": "DELETED",
+            "RENAMED": "RENAMED",
+            "EXTERNAL": "EXTERNAL",
+            "NEW": "NEW",
+            "ADDED": "ADDED",
+            "CONFLICTED": "CONFLICTED"
+        },
+        "progress": {
+            "IN_PROGRESS": "IN_PROGRESS",
+            "IDLE": "IDLE"
+        }
     },
-    "sync": {
-        "UP_TO_DATE": "UP_TO_DATE",
-        "OUT_OF_DATE": "OUT_OF_DATE",
-        "MODIFIED": "MODIFIED",
-        "DELETED": "DELETED",
-        "RENAMED": "RENAMED",
-        "EXTERNAL": "EXTERNAL",
-        "NEW": "NEW",
-        "ADDED": "ADDED",
-        "CONFLICTED": "CONFLICTED"
-    },
-    "map_states_to_priorities" : {
-        "VALID": 0,
-        "PENDING": 1,
-        "DELETED": 2,
-        "INVALID": 3
-    },
-    "map_states_to_descriptions" : {
-        "DELETED": "The validation hasn't been ran yet!",
-        "PENDING": "The validation is pending!",
-        "VALID": "The validation succeeded!",
-        "INVALID": "The validation failed!"
+    "maps" : {
+        "integrity": {
+            "map_states_to_priorities" : {
+                "VALID": 0,
+                "PENDING": 1,
+                "DELETED": 2,
+                "INVALID": 3
+            },
+            "map_states_to_descriptions" : {
+                "DELETED": "The validation hasn't been ran yet!",
+                "PENDING": "The validation is pending!",
+                "VALID": "The validation succeeded!",
+                "INVALID": "The validation failed!"
+            }
+        },
+        "sync": {
+            "map_states_to_priorities" : {
+                "VALID": 0,
+                "PENDING": 1,
+                "DELETED": 2,
+                "INVALID": 3
+            },
+            "map_states_to_descriptions" : {
+                "DELETED": "The validation hasn't been ran yet!",
+                "PENDING": "The validation is pending!",
+                "VALID": "The validation succeeded!",
+                "INVALID": "The validation failed!"
+            }
+        },
+        "progress": {
+            "map_states_to_descriptions" : {
+                "IN-PROGRESS": "Process is in progress!",
+                "IDLE": "There is no processes in progress!"
+            }
+        }
     }
 }

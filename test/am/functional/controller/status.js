@@ -34,8 +34,8 @@ describe('Run Status related functional tests for the API', function () {
                     if (err) {
                         return done({ error: err.toString(), status: res.status, body: res.body });
                     }
-                    res.body.integrity_status.should.equal(status_config.integrity.VALID);
-                    res.body.sync_status.should.equal(status_config.sync.UP_TO_DATE);
+                    res.body.integrity_status.should.equal(status_config.tokens.integrity.VALID);
+                    res.body.sync_status.should.equal(status_config.tokens.sync.UP_TO_DATE);
                     done();
                 });
         });

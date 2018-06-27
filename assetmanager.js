@@ -291,9 +291,12 @@ module.exports = function (server, context) {
         const handler = new Handler(req, res, next);
 
         _workspace.find(workspace_identifier)
-          .then(workspace => workspace.update_and_retrieve_status())
-          .then(statuses => handler.sendJSON(statuses, 200))
-          .catch(statuses => handler.handleError(statuses));
+            .then(workspace => workspace.update_and_retrieve_status())
+            .then(statuses => statuses.map(({ status }) => status))
+            .then(statuses => handler.sendJSON(statuses, 200))
+            .catch(statuses => {
+                handler.handleError(statuses);
+            });
     });
 
     server.get(ref_status_regexp, function (req, res, next) {

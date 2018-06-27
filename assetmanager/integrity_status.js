@@ -5,7 +5,7 @@ const AssetValidator = require('./validator/asset');
 const WorkspaceValidator = require('./validator/workspace');
 const status_config = require('./status.config.json');
 
-const map_states_to_descriptions = status_config.map_states_to_descriptions;
+const map_states_to_descriptions = status_config.maps.integrity.map_states_to_descriptions;
 
 class Status_am extends Status {
 
@@ -23,7 +23,7 @@ class Status_am extends Status {
                     this.status = status;
                     return true;
                 } else {
-                    this.set_state(status_config.integrity.DELETED);
+                    this.set_state(status_config.tokens.integrity.DELETED);
                     return this.save_status();
                 }
             });
@@ -52,13 +52,13 @@ class Workspace extends Status_am {
 
     run () {
         this.remove_info("error");
-        this.set_state(status_config.integrity.PENDING);
+        this.set_state(status_config.tokens.integrity.PENDING);
         return this.save_status()
             .then(() => this.validator.run_workspace_validation())
             .then(
-                () => this.set_state(status_config.integrity.VALID),
+                () => this.set_state(status_config.tokens.integrity.VALID),
                 (validator) => {
-                    this.set_state(status_config.integrity.INVALID);
+                    this.set_state(status_config.tokens.integrity.INVALID);
                     this.set_info("error", validator.error);
                 })
             .then(() => this.save_status());
@@ -74,7 +74,7 @@ class Asset extends Status_am {
     }
 
     run () {
-        this.set_state(status_config.integrity.PENDING);
+        this.set_state(status_config.tokens.integrity.PENDING);
         this.remove_info("assets");
         return Promise.all([
             this.save_status(),
@@ -89,15 +89,15 @@ class Asset extends Status_am {
                         return result;
                     });
                 if (errors.length) {
-                    this.set_state(status_config.integrity.INVALID);
+                    this.set_state(status_config.tokens.integrity.INVALID);
                     this.set_info("assets", errors);
                     return this.save_status();
                 }
-                this.set_state(status_config.integrity.VALID);
+                this.set_state(status_config.tokens.integrity.VALID);
                 return this.save_status();
             })
             .catch(error => {
-                this.set_state(status_config.integrity.INVALID);
+                this.set_state(status_config.tokens.integrity.INVALID);
                 this.set_info("error", error);
                 this.save_status();
                 throw error;

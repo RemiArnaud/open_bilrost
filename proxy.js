@@ -23,6 +23,8 @@ const cache_path = is_win ?
     path.join(process.env.APPDATA,'/Bilrost/Cache') :
     path.join(os.homedir(), 'Library/Bilrost/Cache');
 
+console.log(cache_path);
+
 const default_config = {
     NAME: "Bilrost",
     REST3D_SERVER: "https://bilrost.starbreeze.com",

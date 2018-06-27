@@ -8,7 +8,7 @@ class Repo_manager {
         this.cwd = cwd;
 
         let current_status_del_paths = [
-            { status: status_config.sync.DELETED, ref: '/assets/test_1_1_0.level', path: '/.bilrost/assets/test_1_1_0.level' }
+            { status: status_config.tokens.sync.DELETED, ref: '/assets/test_1_1_0.level', path: '/.bilrost/assets/test_1_1_0.level' }
         ];
 
         this.current_status_callback = sinon.stub();

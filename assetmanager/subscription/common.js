@@ -10,24 +10,25 @@ class Subscription {
         this.descriptor = descriptor;
     }
 
-    validate_descriptor (workspace) {
+    validate_descriptor () {
         return Promise.reject(_error_outputs.INTERNALERROR("Method not implemented."));
     }
 
-    validate_dependencies (workspace) {
+    validate_dependencies () {
         return Promise.reject(_error_outputs.INTERNALERROR("Method not implemented."));
     }
 
-    list_assets (workspace) {
+    list_assets () {
         return Promise.reject(_error_outputs.INTERNALERROR("Method not implemented."));
     }
 
-    list_dependencies (workspace) {
+    list_dependencies () {
         return Promise.reject(_error_outputs.INTERNALERROR("Method not implemented."));
     }
 
     pull_dependencies () {
         const pull_dependency = ref => {
+            const status_header = `Pull ${ref}`;
             const resource_path = this.workspace.utilities.ref_to_relative_path(ref);
             let resource_access, identity_access;
             const identity_path = this.workspace.utilities.resource_ref_to_identity_path(ref);
@@ -37,7 +38,7 @@ class Subscription {
             ])
                 .then(() => {
                     if (!resource_access && identity_access) {
-                        return this.workspace.resource.repo_manager.pull_file(resource_path);
+                        return this.workspace.resource.repo_manager.pull_file(resource_path, this.workspace.status_manager.get_status("progress"));
                     }
                 });
         };

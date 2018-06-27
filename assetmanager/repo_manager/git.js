@@ -22,9 +22,9 @@ const format_file_path = path => '"' + path + '"';
 
 const format_branch_status = status => {
     if (status === "local out of date") {
-        return status_config.sync.OUT_OF_DATE;
+        return status_config.tokens.sync.OUT_OF_DATE;
     } else if (status === "up to date") {
-        return status_config.sync.UP_TO_DATE;
+        return status_config.tokens.sync.UP_TO_DATE;
     } else {
         throw errors.INTERNALERROR('Unknown branch status: ' + status);
     }
@@ -121,19 +121,19 @@ class Repo_manager_git extends Repo_manager {
         switch (status_letter) {
             case 'A':
             case 'C':
-                return status_config.sync.NEW;
+                return status_config.tokens.sync.NEW;
             case 'X':
-                return status_config.sync.NEW;
+                return status_config.tokens.sync.NEW;
             case 'R':
-                return status_config.sync.RENAMED;
+                return status_config.tokens.sync.RENAMED;
             case 'M':
             case 'T':
-                return status_config.sync.MODIFIED;
+                return status_config.tokens.sync.MODIFIED;
             case 'D':
-                return status_config.sync.DELETED;
+                return status_config.tokens.sync.DELETED;
             case 'U':
             case 'B':
-                return status_config.sync.CONFLICTED;
+                return status_config.tokens.sync.CONFLICTED;
             default:
                 throw errors.INTERNALERROR(status_letter+" first status upper case letter isn't defined!");
         }
@@ -142,18 +142,18 @@ class Repo_manager_git extends Repo_manager {
     parse_status (X, Y) {
         switch (Y) {
             case '?':
-                return status_config.sync.NEW;
+                return status_config.tokens.sync.NEW;
             case 'A':
             case 'C':
-                return status_config.sync.NEW;
+                return status_config.tokens.sync.NEW;
             case 'M':
-                return status_config.sync.MODIFIED;
+                return status_config.tokens.sync.MODIFIED;
             case 'D':
-                return status_config.sync.DELETED;
+                return status_config.tokens.sync.DELETED;
             case 'R':
-                return status_config.sync.RENAMED;
+                return status_config.tokens.sync.RENAMED;
             case 'U':
-                return status_config.sync.CONFLICTED;
+                return status_config.tokens.sync.CONFLICTED;
             default:
                 throw errors.INTERNALERROR(Y +" second status upper case letter isn't defined!");
         }
@@ -331,7 +331,7 @@ class Repo_manager_git extends Repo_manager {
                             if (local_branch_name && !is_already_listed_flag) {
                                 branches.locals.push({
                                     name: local_branch_name,
-                                    status: status_config.sync.NEW
+                                    status: status_config.tokens.sync.NEW
                                 });
                             }
                         }

@@ -33,7 +33,7 @@ Validator.attributes.is_ref = instance => {
             return value+' is invalid, '+result+' would be accepted instead';
         }
     });
-    
+
 };
 
 // json schema for project object in workspace resources
@@ -70,11 +70,11 @@ const meta_schema = {
         },
         "created": {
             "type": "string",
-            "is_date": "" 
+            "is_date": ""
         },
         "modified": {
             "type": "string",
-            "is_date": "" 
+            "is_date": ""
         },
         "author": {
             "type": "string",
@@ -122,7 +122,7 @@ Validator.addSchema(meta_schema, '/meta');
 Validator.addSchema(project_schema, '/projects');
 
 function Asset(workspace) {
-    
+
     this.adapter = workspace.adapter;
     this.database = workspace.database;
 
@@ -186,9 +186,9 @@ function Asset(workspace) {
             query = { namespaces: { '$contains': ref }};
         }
         return this.database.search(query)
-            .then(results => results.items);          
+            .then(results => results.items);
     };
-    
+
     this.search_by_ref = (ref, options) => {
         const is_asset = workspace.utilities.is_asset_and_not_namespace(ref);
         const is_asset_namespace = workspace.utilities.is_asset_namespace(ref);
@@ -229,7 +229,7 @@ function Asset(workspace) {
 
         return search_main_in_database(main);
     };
-    
+
     this.check_main_dep_full = main => {
         if (!main) {
             return Promise.resolve();
@@ -272,13 +272,13 @@ function Asset(workspace) {
                 };
                 const version = asset.meta.version;
                 const handle_error = err => {
-                    output.state = status_config.integrity.INVALID;
+                    output.state = status_config.tokens.integrity.INVALID;
                     output.error = err;
                     return output;
                 };
                 const handle_success = () => {
-                    if (output.state !== status_config.integrity.INVALID) {
-                        output.state = status_config.integrity.VALID;
+                    if (output.state !== status_config.tokens.integrity.INVALID) {
+                        output.state = status_config.tokens.integrity.VALID;
                     }
                     return output;
                 };
@@ -308,13 +308,13 @@ function Asset(workspace) {
                 };
                 const version = asset.meta.version;
                 const handle_error = err => {
-                    output.state = status_config.integrity.INVALID;
+                    output.state = status_config.tokens.integrity.INVALID;
                     output.error = err;
                     return Promise.resolve(output);
                 };
                 const handle_success = () => {
-                    if (output.state !== status_config.integrity.INVALID) {
-                        output.state = status_config.integrity.VALID;
+                    if (output.state !== status_config.tokens.integrity.INVALID) {
+                        output.state = status_config.tokens.integrity.VALID;
                     }
                     return output;
                 };
