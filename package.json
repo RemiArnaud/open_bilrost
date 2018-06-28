@@ -4,7 +4,7 @@
     "bilrost-server": "./bin/start.js"
   },
   "description": "Web and proxy server for fl4re applications",
-  "version": "2.0.23",
+  "version": "2.0.24",
   "main": "proxy.js",
   "private": false,
   "engines": {
