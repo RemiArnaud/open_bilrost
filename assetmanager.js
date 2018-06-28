@@ -197,15 +197,6 @@ module.exports = function (server, context) {
             });
     });
 
-    server.post(workspace_reset_regexp, function (req, res, next) {
-        const workspace_identifier = decodeURIComponent(req.params[0]);
-        const handler = new Handler(req, res, next);
-        _workspace.find(workspace_identifier)
-            .then(workspace => workspace.reset())
-            .then(() => handler.sendJSON('Ok', 200))
-            .catch(workspace => handler.handleError(workspace.error || workspace));
-    });
-
     server.post('/assetmanager/workspaces/favorites', function (req, res, next) {
         const handler = new Handler(req, res, next);
         const workspace_file_uri = req.body.file_uri;
@@ -223,6 +214,15 @@ module.exports = function (server, context) {
         favorite.flush()
             .then(() => handler.sendJSON('Ok', 200))
             .catch(handler.handleError);
+    });
+
+    server.post(workspace_reset_regexp, function (req, res, next) {
+        const workspace_identifier = decodeURIComponent(req.params[0]);
+        const handler = new Handler(req, res, next);
+        _workspace.find(workspace_identifier)
+            .then(workspace => workspace.reset())
+            .then(() => handler.sendJSON('Ok', 200))
+            .catch(workspace => handler.handleError(workspace.error || workspace));
     });
 
     server.del(favorites_regexp, function (req, res, next) {
